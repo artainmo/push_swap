@@ -52,12 +52,19 @@ typedef struct s_sorted_chain
 	struct s_sorted_chain *head;
 } t_sorted_chain;
 
+typedef struct s_bonus
+{
+	int live;
+	int visual;
+	int color;
+} t_bonus;
+
 t_stack *stack_init(int value);
 t_stack *stack_end(t_stack *stack);
 t_stack *stack_begin(t_stack *stack);
 t_stack *stack_push(t_stack *stack, int value);
 t_stack *stack_pop(t_stack *stack);
-void show_stack(t_stack *stack, t_stack *b, char *title,  int vis, int color);
+void show_stack(t_ab_stack *s, char *title,  int vis, int color);
 void free_stack(t_stack *s);
 void free_ab_stack(t_ab_stack *s);
 void free_operations(t_operations *o);
@@ -76,7 +83,7 @@ int is_sorted(t_stack *a, t_stack *b);
 void verify_duplicates2(int value, t_stack *s);
 void verify_duplicates(t_stack *a);
 void verify_number_errors(int argc, char **argv);
-char **verify_bonuses(int *argc, char **argv, int *vis, int *color, int *live);
+char **verify_bonuses(int *argc, char **argv, t_bonus *bonus);
 void show_operations(t_operations *o, int visual, int color);
 char *malloc_operation(char *operation);
 

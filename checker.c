@@ -16,7 +16,7 @@ static void	do_it_live(t_ab_stack *s)
 {
 	char *line;
 
-	show_stack(s->a, s->b, "Init:", 1, 0);
+	show_stack(s, "Init:", 1, 0);
 	while (1)
 	{
 		if ((get_next_line(0, &line)) == -1)
@@ -24,7 +24,7 @@ static void	do_it_live(t_ab_stack *s)
 		if (ft_strlen(line) == 0)
 			break ;
 		s = find_operation(s, line);
-		show_stack(s->a, s->b, line, 1, 0);
+		show_stack(s, line, 1, 0);
 	}
 	if (is_sorted(s->a, s->b))
 		write(1, "OK\n", 3);
@@ -39,9 +39,9 @@ static void	apply_input(t_operations *o, t_ab_stack *s, int visual, int color)
 	{
 		s = find_operation(s, o->line);
 		if (visual && color && o->next->next == 0)
-			show_stack(s->a, s->b, o->line, 1, 1);
+			show_stack(s, o->line, 1, 1);
 		else if (visual)
-			show_stack(s->a, s->b, o->line, 1, 0);
+			show_stack(s, o->line, 1, 0);
 		o = o->next;
 	}
 	if (is_sorted(s->a, s->b))
@@ -80,15 +80,13 @@ static void	take_input(t_ab_stack *s, int visual, int color)
 int			main(int argc, char **argv)
 {
 	t_ab_stack	*s;
-	int			visual;
-	int			color;
-	int			live;
+	t_bonus bonus;
 
 	s = init_ab_stack(0, 0);
-	visual = 0;
-	color = 0;
-	live = 0;
-	argv = verify_bonuses(&argc, argv, &visual, &color, &live);
+	bonus.visual = 0;
+	bonus.color = 0;
+	bonus.live = 0;
+	argv = verify_bonuses(&argc, argv, &bonus);
 	if (argc == 1)
 		exit(1);
 	verify_number_errors(argc, argv);
@@ -98,9 +96,9 @@ int			main(int argc, char **argv)
 		argc--;
 	}
 	verify_duplicates(s->a);
-	show_stack(s->a, s->b, "Init", visual, 0);
-	if (!live)
-		take_input(s, visual, color);
+	show_stack(s, "Init", bonus.visual, 0);
+	if (!bonus.live)
+		take_input(s, bonus.visual, bonus.color);
 	else
 		do_it_live(s);
 	return (0);

@@ -52,14 +52,14 @@ void		verify_number_errors(int argc, char **argv)
 **Live let you make changes and visualize them right after each operation
 */
 
-static char	**live_bonus(int *argc, char **argv, int *live)
+static char	**live_bonus(int *argc, char **argv, t_bonus *b)
 {
-	*live = 1;
+	b->live = 1;
 	*argc = *argc - 1;
 	return (&argv[1]);
 }
 
-char		**verify_bonuses(int *argc, char **argv, int *vis, int *c, int *l)
+char		**verify_bonuses(int *argc, char **argv, t_bonus *b)
 {
 	int i;
 
@@ -67,19 +67,19 @@ char		**verify_bonuses(int *argc, char **argv, int *vis, int *c, int *l)
 	while (i < 3 && i < *argc)
 	{
 		if (ft_strcmp(argv[i], "-v"))
-			*vis = 1;
+			b->visual = 1;
 		if (ft_strcmp(argv[i], "-c"))
-			*c = 1;
+			b->color = 1;
 		if (i == 1 && ft_strcmp(argv[i], "-l"))
-			return (live_bonus(argc, argv, l));
+			return (live_bonus(argc, argv, b));
 		i++;
 	}
-	if (*vis && *c)
+	if (b->visual && b->color)
 	{
 		*argc = *argc - 2;
 		return (&argv[2]);
 	}
-	else if (*vis || *c)
+	else if (b->visual || b->color)
 	{
 		*argc = *argc - 1;
 		return (&argv[1]);

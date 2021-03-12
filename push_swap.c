@@ -28,12 +28,10 @@ static void			shortest_operation(t_ab_stack *s, t_operations *o)
 		ft_error("Error: no operation found");
 }
 
-static t_operations	*get_operations(t_stack *a, t_stack *b)
+static t_operations	*get_operations(t_ab_stack *s)
 {
 	t_operations	*o;
-	t_ab_stack		*s;
 
-	s = init_ab_stack(a, b);
 	o = init_operations();
 	while (!is_sorted(s->a, s->b))
 	{
@@ -54,13 +52,12 @@ int					main(int argc, char **argv)
 {
 	t_ab_stack		*s;
 	t_operations	*o;
-	int				visual;
-	int				color;
+	t_bonus bonus;
 
 	s = init_ab_stack(0, 0);
-	visual = 0;
-	color = 0;
-	argv = verify_bonuses(&argc, argv, &visual, &color, 0);
+	bonus.visual = 0;
+	bonus.color = 0;
+	argv = verify_bonuses(&argc, argv, &bonus);
 	if (argc == 1)
 		exit(1);
 	verify_number_errors(argc, argv);
@@ -70,9 +67,10 @@ int					main(int argc, char **argv)
 		argc--;
 	}
 	verify_duplicates(s->a);
-	show_stack(s->a, s->b, "Init", visual, 0);
-	o = get_operations(s->a, s->b);
-	show_operations(o->head, visual, color);
+	show_stack(s, "Init", bonus.visual, 0);
+	show_stack(s, "Init", bonus.visual, 0);
+	o = get_operations(s);
+	show_operations(o->head, bonus.visual, bonus.color);
 	free_operations(o->head);
 	return (0);
 }
