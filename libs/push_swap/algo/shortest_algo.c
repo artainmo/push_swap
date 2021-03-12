@@ -17,12 +17,10 @@ char		*shortest_path_to_correct_placement(t_stack *a)
 	if (stack_end(a)->number - stack_highest_value_pos(a) + 1
 			< stack_highest_value_pos(a))
 	{
-		p("6");
 		return (malloc_operation("ra"));
 	}
 	else
 	{
-		p("2");
 		return (malloc_operation("rra"));
 	}
 }
@@ -43,12 +41,10 @@ static char	*goto_ideal_value_top_b(t_stack *a, t_stack *b)
 	pos = get_position_from_value(a, ideal_next2(a, stack_end(b)->value));
 	if (pos <= stack_end(a)->number - pos + 1)
 	{
-		p("1");
 		return (malloc_operation("rra"));
 	}
 	else
 	{
-		p("7");
 		return (malloc_operation("ra"));
 	}
 }
@@ -63,20 +59,16 @@ char		*top_smaller_than_second(t_stack *a, t_stack *b)
 		return (goto_ideal_value_top_b(a, b));
 	if (dir == 2)
 	{
-		p("3");
 		return (malloc_operation("rra"));
 	}
 	else if (dir == 1)
 	{
-		p("8");
 		return (malloc_operation("ra"));
 	}
 	else if (dir == -1)
 	{
-		p("4");
 		return (malloc_operation("rra"));
 	}
-	p("5");
 	return (malloc_operation("ra"));
 }
 

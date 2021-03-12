@@ -9,7 +9,7 @@ SRCSC	= algo/shortest_algo.c \
 					utils/handle_stack.c \
 					utils/handle_stack2.c \
 					utils/handle_struct.c \
-					utils/show.c \
+					utils/show.c
 SRCSH	= push_swap.h
 OBJS	= $(SRCSC:%.c=%.o)
 NAME	= push_swap_lib.a
