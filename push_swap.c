@@ -23,15 +23,8 @@ static t_operations *get_operations(t_stack *a, t_stack *b)
   t_operations *o;
   t_ab_stack *s;
 
-  if ((s = malloc(sizeof(t_ab_stack))) == 0)
-    ft_error("Malloc failed");
-  s->a = a;
-  s->b = b;
-  if ((o = malloc(sizeof(t_operations))) == 0)
-    ft_error("Malloc failed");
-  o->head = o;
-  o->next = 0;
-  o->line = 0;
+  s = init_ab_stack(a, b);
+  o = init_operations();
   while (!is_sorted(s->a, s->b))
   {
     shortest_operation(s, o);
@@ -55,10 +48,7 @@ int main(int argc, char **argv)
   int visual;
   int color;
 
-  if ((s = malloc(sizeof(t_ab_stack))) == 0)
-    ft_error("Malloc failed");
-  s->a = 0;
-  s->b = 0;
+  s = init_ab_stack(0, 0);
   visual = 0;
   color = 0;
   argv = verify_bonuses(&argc, argv, &visual, &color, 0);
@@ -71,8 +61,7 @@ int main(int argc, char **argv)
     argc--;
   }
   verify_duplicates(s->a);
-  if (visual)
-    show_stack(s->a, s->b, "Init", 0);
+  show_stack(s->a, s->b, "Init", visual, 0);
   o = get_operations(s->a, s->b);
   show_operations(o->head, visual, color);
   free_operations(o->head);

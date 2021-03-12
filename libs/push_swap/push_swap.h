@@ -45,11 +45,13 @@ t_stack *stack_end(t_stack *stack);
 t_stack *stack_begin(t_stack *stack);
 t_stack *stack_push(t_stack *stack, int value);
 t_stack *stack_pop(t_stack *stack);
-void show_stack(t_stack *stack, t_stack *b, char *title, int color);
+void show_stack(t_stack *stack, t_stack *b, char *title,  int vis, int color);
 void free_stack(t_stack *s);
 void free_ab_stack(t_ab_stack *s);
 void free_operations(t_operations *o);
 void free_sorted_chain(t_sorted_chain *sc);
+t_ab_stack *init_ab_stack(t_stack *a, t_stack *b);
+t_operations *init_operations();
 
 t_stack *ft_s(t_stack *a);
 t_ab_stack *ft_pa(t_ab_stack *s);
@@ -74,6 +76,7 @@ int ideal_next2(t_stack *a, int ideal);
 t_stack *stack_copy(t_stack *a);
 int get_position_from_value(t_stack *a, int value);
 
+int ordered(t_stack *a);
 int all_ordered(t_stack *a, t_stack *b);
 int longest_chain_dir(t_stack *a);
 char *shortest_path_to_correct_placement(t_stack *a);

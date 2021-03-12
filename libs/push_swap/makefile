@@ -1,9 +1,15 @@
-SRCSC	= handle_struct.c \
-				handle_struct2.c \
-	      operations.c \
-				utils.c \
-				shortest_algo.c \
-				handle_struct3.c
+SRCSC	= algo/shortest_algo.c \
+					algo/shortest_algo2.c \
+					algo/shortest_algo3.c \
+					algo/shortest_algo4.c \
+					operations/find_operation.c \
+					operations/operations.c \
+					utils/bonus_and_verifs.c \
+					utils/free.c \
+					utils/handle_stack.c \
+					utils/handle_stack2.c \
+					utils/handle_struct.c \
+					utils/show.c
 SRCSH	= push_swap.h
 OBJS	= $(SRCSC:%.c=%.o)
 NAME	= push_swap_lib.a
