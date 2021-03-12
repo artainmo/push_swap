@@ -22,31 +22,31 @@ t_stack	*stack_init(int value)
 	new->prev = 0;
 	new->value = value;
 	new->number = 0;
-	return new;
+	return (new);
 }
 
 t_stack	*stack_end(t_stack *stack)
 {
 	if (stack == 0)
-		return 0;
+		return (0);
 	while (stack->next != 0)
 		stack = stack->next;
-	return stack;
+	return (stack);
 }
 
 t_stack	*stack_begin(t_stack *stack)
 {
 	if (stack == 0)
-		return 0;
+		return (0);
 	while (stack->prev != 0)
 		stack = stack->prev;
-	return stack;
+	return (stack);
 }
 
 t_stack	*stack_push(t_stack *stack, int value)
 {
 	if (stack == 0)
-		return stack_init(value);
+		return (stack_init(value));
 	else
 	{
 		stack = stack_end(stack);
@@ -57,7 +57,7 @@ t_stack	*stack_push(t_stack *stack, int value)
 		stack->next->value = value;
 		stack->next->number = stack->number + 1;
 	}
-	return stack_begin(stack);
+	return (stack_begin(stack));
 }
 
 t_stack	*stack_pop(t_stack *stack)
@@ -68,13 +68,13 @@ t_stack	*stack_pop(t_stack *stack)
 	if (stack->prev == 0)
 	{
 		free(stack);
-		return 0;
+		return (0);
 	}
 	else
 	{
 		stack = stack->prev;
 		free(stack->next);
 		stack->next = 0;
-		return stack_begin(stack);
+		return (stack_begin(stack));
 	}
 }

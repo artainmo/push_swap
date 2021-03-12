@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "push_swap.h"
-
 
 static void	do_it_live(t_ab_stack *s)
 {
@@ -79,12 +77,12 @@ static void	take_input(t_ab_stack *s, int visual, int color)
 	apply_input(o, s, visual, color);
 }
 
-int 		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
-	t_ab_stack *s;
-	int visual;
-	int color;
-	int live;
+	t_ab_stack	*s;
+	int			visual;
+	int			color;
+	int			live;
 
 	s = init_ab_stack(0, 0);
 	visual = 0;
@@ -105,9 +103,5 @@ int 		main(int argc, char **argv)
 		take_input(s, visual, color);
 	else
 		do_it_live(s);
-	return 0;
+	return (0);
 }
-// printf("END:%i\n", stack_end(a)->value);
-// fflush(stdout);
-// printf("BEGIN:%i\n", stack_begin(a)->value);
-// fflush(stdout);

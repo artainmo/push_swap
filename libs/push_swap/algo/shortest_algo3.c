@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../push_swap.h"
 
 static void				chain(t_stack *a, t_sorted_chain *sc)
@@ -24,8 +23,6 @@ static void				chain(t_stack *a, t_sorted_chain *sc)
 		return ;
 	}
 	sc->start = a->number;
-	// printf("%i %i\n", ideal_next(a), stack_next(a)->value);
-	// fflush(stdout);
 	while (ideal_next(a) == stack_next(a)->value)
 	{
 		no = 1;
@@ -45,12 +42,10 @@ static t_sorted_chain	*get_chains(t_stack *a, t_sorted_chain *sc)
 	while (a != 0)
 	{
 		chain(a, sc);
-		// printf("%i %i %i\n", sc->start, sc->end, sc->len);
-		// // printf("%i\n", stack_end(a)->number);
 		if (sc->len == stack_end(a)->number)
 		{
 			free_sorted_chain(sc->head);
-			return 0;
+			return (0);
 		}
 		if ((sc->next = malloc(sizeof(t_sorted_chain))) == 0)
 			ft_error("Malloc failed");
@@ -58,7 +53,7 @@ static t_sorted_chain	*get_chains(t_stack *a, t_sorted_chain *sc)
 		sc = sc->next;
 		a = a->next;
 	}
-	return sc;
+	return (sc);
 }
 
 static t_sorted_chain	*find_longest_chain(t_sorted_chain *sc)
@@ -77,41 +72,45 @@ static t_sorted_chain	*find_longest_chain(t_sorted_chain *sc)
 	sc = sc->head;
 	while (sc->len != longest)
 		sc = sc->next;
-	return sc;
+	return (sc);
 }
 
 int						longest_chain_dir_return(t_stack *a, t_sorted_chain *sc)
 {
-	if (sc->start > sc->end || stack_end(a)->number == sc->end) //It is in
+	if (sc->start > sc->end || stack_end(a)->number == sc->end)
 	{
-		if (stack_end(a)->number - sc->start - 1 > sc->end) //It is down
+		if (stack_end(a)->number - sc->start - 1 > sc->end)
 		{
 			free_sorted_chain(sc->head);
-			return -1;
+			return (-1);
 		}
-		else //It is up	
+		else
 		{
 			free_sorted_chain(sc->head);
-			return -2;
+			return (-2);
 		}
 	}
-	// printf("%i < %i\n", stack_end(i)->number - sc->end - 1, sc->start);
-	// fflush(stdout);
-	if (stack_end(a)->number - sc->end - 1 < sc->start) //It is down
+	if (stack_end(a)->number - sc->end - 1 < sc->start)
 	{
 		free_sorted_chain(sc->head);
-		return 2;
+		return (2);
 	}
-	else //It is up
+	else
 	{
 		free_sorted_chain(sc->head);
-		return 1;
+		return (1);
 	}
 }
 
-//Returns 1 if longest chain is closer up (oposite direction -> rr) and 2 if it is closer down (oposite direction -> r) based on upper value relative to performed view by show_stack
-//If longest chain exit is closer down return -1 (same direction -> rr) and if it is closer up return -2 (same direction -> r)
-//Returns 0 if all is ordered then value closest to b value must be moved to
+/*
+** Returns 1 if longest chain is closer up (oposite direction -> rr) and 2
+** if it is closer down (oposite direction -> r) based on upper value relative
+** to performed view by show_stack
+** If longest chain exit is closer down return -1 (same direction -> rr) and
+** if it is closer up return -2 (same direction -> r)
+** Returns 0 if all is ordered then value closest to b value must be moved to
+*/
+
 int						longest_chain_dir(t_stack *a)
 {
 	t_sorted_chain *sc;
@@ -120,8 +119,7 @@ int						longest_chain_dir(t_stack *a)
 		ft_error("Malloc failed");
 	sc->head = sc;
 	if ((sc = get_chains(a, sc)) == 0)
-		return 0;
+		return (0);
 	sc = find_longest_chain(sc->head);
-	return longest_chain_dir_return(a, sc);
-
+	return (longest_chain_dir_return(a, sc));
 }

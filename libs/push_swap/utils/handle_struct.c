@@ -20,7 +20,7 @@ t_ab_stack		*ab_stack_copy(t_ab_stack *s)
 		ft_error("Malloc failed");
 	ret->a = stack_copy(s->a);
 	ret->b = stack_copy(s->b);
-	return ret;
+	return (ret);
 }
 
 t_ab_stack		*init_ab_stack(t_stack *a, t_stack *b)
@@ -31,10 +31,10 @@ t_ab_stack		*init_ab_stack(t_stack *a, t_stack *b)
 		ft_error("Malloc failed");
 	s->a = a;
 	s->b = b;
-	return s;
+	return (s);
 }
 
-t_operations	*init_operations()
+t_operations	*init_operations(void)
 {
 	t_operations *o;
 
@@ -44,5 +44,5 @@ t_operations	*init_operations()
 	o->next = 0;
 	o->line = 0;
 	o->s = 0;
-	return o;
+	return (o);
 }

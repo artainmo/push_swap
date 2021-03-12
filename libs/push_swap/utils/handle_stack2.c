@@ -16,7 +16,7 @@ t_stack	*stack_position(t_stack *s, int number)
 {
 	while (s->number != number)
 		s = s->next;
-	return s;
+	return (s);
 }
 
 int		stack_highest_value_pos(t_stack *s)
@@ -34,15 +34,15 @@ int		stack_highest_value_pos(t_stack *s)
 		}
 		s = s->next;
 	}
-	return num;
+	return (num);
 }
 
 t_stack	*stack_next(t_stack *s)
 {
 	if (s->next == 0)
-		return stack_begin(s);
+		return (stack_begin(s));
 	else
-		return s->next;
+		return (s->next);
 }
 
 int		get_position_from_value(t_stack *a, int value)
@@ -50,11 +50,11 @@ int		get_position_from_value(t_stack *a, int value)
 	while (a != 0)
 	{
 		if (a->value == value)
-			return a->number;
+			return (a->number);
 		a = a->next;
 	}
 	ft_error("get_position_from_value function error");
-	return 0;
+	return (0);
 }
 
 t_stack	*stack_copy(t_stack *a)
@@ -67,5 +67,5 @@ t_stack	*stack_copy(t_stack *a)
 		cpy = stack_push(cpy, a->value);
 		a = a->next;
 	}
-	return cpy;
+	return (cpy);
 }

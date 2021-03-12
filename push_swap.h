@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP
-#define PUSH_SWAP
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "libs/libft_plus/libft.h"
-#include "libs/push_swap/push_swap.h"
-#include "libs/get_next_line/get_next_line.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include "libs/libft_plus/libft.h"
+# include "libs/push_swap/push_swap.h"
+# include "libs/get_next_line/get_next_line.h"
 
 #endif

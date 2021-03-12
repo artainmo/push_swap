@@ -15,14 +15,14 @@
 static int	show_stack_init(char *title, int visual, int color)
 {
 	if (visual == 0)
-		return 0;
+		return (0);
 	if (color == 1)
 		write(1, "\033[0;36m", 8);
 	write(1, "-------------------\n", 20);
 	write(1, title, ft_strlen(title));
 	write(1, "\n", 1);
 	write(1, "stack a     stack b\n", 20);
-	return 1;
+	return (1);
 }
 
 void		show_stack(t_stack *a, t_stack *b, char *title, int vis, int color)
@@ -76,7 +76,7 @@ void		show_operations(t_operations *o, int visual, int color)
 	{
 		if (visual && o->next->next != 0)
 			show_stack(o->s->a, o->s->b, o->line, 1, 0);
-		else if (visual && o->next->next == 0) //operations ends with empty oper
+		else if (visual && o->next->next == 0)
 			show_stack(o->s->a, o->s->b, o->line, 1, color);
 		else
 		{

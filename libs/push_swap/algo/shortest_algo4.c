@@ -10,15 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../push_swap.h"
 
-//If no ideal next because is smallest value -> returns itself
-//, which cannot be equal to another number as all are unique
+/*
+**If no ideal next because is smallest value -> returns itself
+**which cannot be equal to another number as all are unique
+*/
+
 int	ideal_next(t_stack *a)
 {
-	t_stack *i;
-	int ideal;
+	t_stack	*i;
+	int		ideal;
 
 	i = stack_begin(a);
 	ideal = a->value;
@@ -28,13 +30,13 @@ int	ideal_next(t_stack *a)
 			ideal = i->value;
 		i = i->next;
 	}
-	return ideal;
+	return (ideal);
 }
 
 int	ideal_next2(t_stack *a, int value)
 {
-	t_stack *i;
-	int ideal;
+	t_stack	*i;
+	int		ideal;
 
 	i = stack_begin(a);
 	ideal = value;
@@ -44,5 +46,5 @@ int	ideal_next2(t_stack *a, int value)
 			ideal = i->value;
 		i = i->next;
 	}
-	return ideal;
+	return (ideal);
 }

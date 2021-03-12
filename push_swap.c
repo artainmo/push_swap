@@ -12,8 +12,6 @@
 
 #include "push_swap.h"
 
-//Ideal place refers to one of two moved values ideally placed relative to front or back value
-//Maybe follow two paths one with ra as base direction and another with rra as base direction
 static void			shortest_operation(t_ab_stack *s, t_operations *o)
 {
 	char *ret;
@@ -32,8 +30,8 @@ static void			shortest_operation(t_ab_stack *s, t_operations *o)
 
 static t_operations	*get_operations(t_stack *a, t_stack *b)
 {
-	t_operations *o;
-	t_ab_stack *s;
+	t_operations	*o;
+	t_ab_stack		*s;
 
 	s = init_ab_stack(a, b);
 	o = init_operations();
@@ -41,7 +39,6 @@ static t_operations	*get_operations(t_stack *a, t_stack *b)
 	{
 		shortest_operation(s, o);
 		s = find_operation(s, o->line);
-		// show_stack(s->a, s->b, o->line, 0);
 		o->s = ab_stack_copy(s);
 		if ((o->next = malloc(sizeof(t_operations))) == 0)
 			ft_error("Malloc failed");
@@ -55,10 +52,10 @@ static t_operations	*get_operations(t_stack *a, t_stack *b)
 
 int					main(int argc, char **argv)
 {
-	t_ab_stack *s;
-	t_operations *o;
-	int visual;
-	int color;
+	t_ab_stack		*s;
+	t_operations	*o;
+	int				visual;
+	int				color;
 
 	s = init_ab_stack(0, 0);
 	visual = 0;
@@ -77,10 +74,5 @@ int					main(int argc, char **argv)
 	o = get_operations(s->a, s->b);
 	show_operations(o->head, visual, color);
 	free_operations(o->head);
-	return 0;
+	return (0);
 }
-
-// int main()
-// {
-//   return 0;
-// }
