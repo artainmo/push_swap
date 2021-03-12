@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-static int	show_stack_init(char *title, int visual, int color)
+static int		show_stack_init(char *title, int visual, int color)
 {
 	if (visual == 0)
 		return (0);
@@ -25,7 +25,7 @@ static int	show_stack_init(char *title, int visual, int color)
 	return (1);
 }
 
-static t_stack *show_single_stack(t_stack *s, int *size)
+static t_stack	*show_single_stack(t_stack *s, int *size)
 {
 	char *str;
 
@@ -33,14 +33,14 @@ static t_stack *show_single_stack(t_stack *s, int *size)
 		ft_error("Malloc failed");
 	*size = ft_strlen(str);
 	write(1, str, *size);
-	return s->prev;
+	return (s->prev);
 }
 
-void		show_stack(t_ab_stack *s, char *title, int vis, int color)
+void			show_stack(t_ab_stack *s, char *title, int vis, int color)
 {
-	int first_size;
-	t_stack *a;
-	t_stack *b;
+	int		first_size;
+	t_stack	*a;
+	t_stack	*b;
 
 	if (!show_stack_init(title, vis, color))
 		return ;
@@ -60,7 +60,7 @@ void		show_stack(t_ab_stack *s, char *title, int vis, int color)
 	write(1, "\033[0;37m", 8);
 }
 
-static void	show_total_steps(int i, int visual)
+static void		show_total_steps(int i, int visual)
 {
 	char *str;
 
@@ -73,7 +73,7 @@ static void	show_total_steps(int i, int visual)
 	write(1, "\n", 1);
 }
 
-void		show_operations(t_operations *o, int visual, int color)
+void			show_operations(t_operations *o, int visual, int color)
 {
 	int i;
 

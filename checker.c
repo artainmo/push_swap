@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_lib.h"
 
 static void	do_it_live(t_ab_stack *s)
 {
@@ -80,7 +80,7 @@ static void	take_input(t_ab_stack *s, int visual, int color)
 int			main(int argc, char **argv)
 {
 	t_ab_stack	*s;
-	t_bonus bonus;
+	t_bonus		bonus;
 
 	s = init_ab_stack(0, 0);
 	bonus.visual = 0;

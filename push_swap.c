@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_lib.h"
 
 static void			shortest_operation(t_ab_stack *s, t_operations *o)
 {
@@ -52,7 +52,7 @@ int					main(int argc, char **argv)
 {
 	t_ab_stack		*s;
 	t_operations	*o;
-	t_bonus bonus;
+	t_bonus			bonus;
 
 	s = init_ab_stack(0, 0);
 	bonus.visual = 0;
