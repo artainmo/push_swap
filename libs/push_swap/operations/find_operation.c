@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-t_ab_stack *find_operation3(t_ab_stack *s, char *line)
+t_ab_stack	*find_operation3(t_ab_stack *s, char *line)
 {
   if (ft_strcmp(line, "rra"))
   {
@@ -36,7 +36,7 @@ t_ab_stack *find_operation3(t_ab_stack *s, char *line)
 }
 
 
-t_ab_stack *find_operation2(t_ab_stack *s, char *line)
+t_ab_stack	*find_operation2(t_ab_stack *s, char *line)
 {
   if (ft_strcmp(line, "pb"))
   {
@@ -62,7 +62,7 @@ t_ab_stack *find_operation2(t_ab_stack *s, char *line)
   return find_operation3(s, line);
 }
 
-t_ab_stack *find_operation(t_ab_stack *s, char *line)
+t_ab_stack	*find_operation(t_ab_stack *s, char *line)
 {
   if (ft_strcmp(line, "sa"))
   {
@@ -88,7 +88,7 @@ t_ab_stack *find_operation(t_ab_stack *s, char *line)
   return find_operation2(s, line);
 }
 
-char *malloc_operation(char *operation)
+char		*malloc_operation(char *operation)
 {
   char *ret;
 
