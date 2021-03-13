@@ -68,7 +68,6 @@ int					main(int argc, char **argv)
 	}
 	verify_duplicates(s->a);
 	show_stack(s, "Init", bonus.visual, 0);
-	show_stack(s, "Init", bonus.visual, 0);
 	o = get_operations(s);
 	show_operations(o->head, bonus.visual, bonus.color);
 	free_operations(o->head);
