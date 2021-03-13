@@ -48,3 +48,17 @@ int	ideal_next2(t_stack *a, int value)
 	}
 	return (ideal);
 }
+
+char		*top_greater_than_second2(t_stack *a)
+{
+	// t_sorted_chain *sc;
+
+	if (stack_end(a)->value < stack_end(a)->prev->value)
+		return (0);
+	// sc = longest_chain(a);
+	// if (sc == 0)
+	// 	return (malloc_operation("sa"));
+	// if (sc->end == stack_end(a)->prev->number || sc->start == stack_end(a)->number)
+	// 	return out_longest_chain(a, 0, sc);
+	return (malloc_operation("sa"));
+}

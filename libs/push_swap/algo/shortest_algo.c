@@ -49,27 +49,48 @@ static char	*goto_ideal_value_top_b(t_stack *a, t_stack *b)
 	}
 }
 
-char		*top_smaller_than_second(t_stack *a, t_stack *b)
-{
-	int dir;
+/*
+**First sc == 0 is in case no longest chain exists
+**First two returns are in case of top a inside longest sorted chain
+**Last two are in case top a outside longests sorted chain
+*/
 
-	if (stack_end(a)->value > stack_end(a)->prev->value)
-		return (0);
-	if ((dir = longest_chain_dir(a)) == -1 && b != 0)
-		return (goto_ideal_value_top_b(a, b));
-	if (dir == 2)
+char		*out_longest_chain(t_stack *a, t_stack *b, t_sorted_chain *sc)
+{
+	if (sc == 0)
+		return (malloc_operation("rra"));
+	if (sc->start > sc->end || stack_end(a)->number == sc->end)
 	{
+		if (stack_end(a)->number - sc->start - 1 > sc->end)
+		{
+			free_sorted_chain(sc->head);
+			if (b != 0)
+				return (goto_ideal_value_top_b(a, b));
+			return (malloc_operation("rra"));
+		}
+		else
+		{
+			free_sorted_chain(sc->head);
+			return (malloc_operation("ra"));
+		}
+	}
+	if (stack_end(a)->number - sc->end - 1 < sc->start)
+	{
+		free_sorted_chain(sc->head);
 		return (malloc_operation("rra"));
 	}
-	else if (dir == 1)
+	else
 	{
+		free_sorted_chain(sc->head);
 		return (malloc_operation("ra"));
 	}
-	else if (dir == -1)
-	{
-		return (malloc_operation("rra"));
-	}
-	return (malloc_operation("ra"));
+}
+
+char		*top_smaller_than_second(t_stack *a, t_stack *b)
+{
+	if (stack_end(a)->value > stack_end(a)->prev->value)
+		return (0);
+	return out_longest_chain(a, b, longest_chain(a));
 }
 
 /*

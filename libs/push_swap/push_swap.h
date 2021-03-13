@@ -94,11 +94,13 @@ int				get_position_from_value(t_stack *a, int value);
 
 int				ordered(t_stack *a);
 int				all_ordered(t_stack *a, t_stack *b);
-int				longest_chain_dir(t_stack *a);
+t_sorted_chain	*longest_chain(t_stack *a);
+char		*out_longest_chain(t_stack *a, t_stack *b, t_sorted_chain *sc);
 char			*shortest_path_to_correct_placement(t_stack *a);
 char			*b_values_ideal_position_a(t_stack *a, t_stack *b);
 char			*top_smaller_than_second(t_stack *a, t_stack *b);
 char			*top_greater_than_second(t_stack *a, t_stack *b);
+char			*top_greater_than_second2(t_stack *a);
 t_ab_stack		*ab_stack_copy(t_ab_stack *s);
 
 #endif

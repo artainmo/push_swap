@@ -37,8 +37,13 @@ static void				chain(t_stack *a, t_sorted_chain *sc)
 		sc->len = sc->end + stack_end(a)->number + 1 - sc->start;
 }
 
-static t_sorted_chain	*get_chains(t_stack *a, t_sorted_chain *sc)
+static t_sorted_chain	*get_chains(t_stack *a)
 {
+	t_sorted_chain *sc;
+
+	if ((sc = malloc(sizeof(t_sorted_chain))) == 0)
+		ft_error("Malloc failed");
+	sc->head = sc;
 	while (a != 0)
 	{
 		chain(a, sc);
@@ -65,6 +70,8 @@ static t_sorted_chain	*find_longest_chain(t_sorted_chain *sc)
 	{
 		if (sc->len > longest)
 			longest = sc->len;
+		// printf("%i\n", sc->len);
+		// fflush(stdout);
 		sc = sc->next;
 	}
 	if (sc->len > longest)
@@ -72,54 +79,16 @@ static t_sorted_chain	*find_longest_chain(t_sorted_chain *sc)
 	sc = sc->head;
 	while (sc->len != longest)
 		sc = sc->next;
+	if (sc->len == 0)
+		return 0;
 	return (sc);
 }
 
-int						longest_chain_dir_return(t_stack *a, t_sorted_chain *sc)
-{
-	if (sc->start > sc->end || stack_end(a)->number == sc->end)
-	{
-		if (stack_end(a)->number - sc->start - 1 > sc->end)
-		{
-			free_sorted_chain(sc->head);
-			return (-1);
-		}
-		else
-		{
-			free_sorted_chain(sc->head);
-			return (-2);
-		}
-	}
-	if (stack_end(a)->number - sc->end - 1 < sc->start)
-	{
-		free_sorted_chain(sc->head);
-		return (2);
-	}
-	else
-	{
-		free_sorted_chain(sc->head);
-		return (1);
-	}
-}
-
-/*
-** Returns 1 if longest chain is closer up (oposite direction -> rr) and 2
-** if it is closer down (oposite direction -> r) based on upper value relative
-** to performed view by show_stack
-** If longest chain exit is closer down return -1 (same direction -> rr) and
-** if it is closer up return -2 (same direction -> r)
-** Returns 0 if all is ordered then value closest to b value must be moved to
-*/
-
-int						longest_chain_dir(t_stack *a)
+t_sorted_chain	*longest_chain(t_stack *a)
 {
 	t_sorted_chain *sc;
 
-	if ((sc = malloc(sizeof(t_sorted_chain))) == 0)
-		ft_error("Malloc failed");
-	sc->head = sc;
-	if ((sc = get_chains(a, sc)) == 0)
+	if ((sc = get_chains(a)) == 0)
 		return (0);
-	sc = find_longest_chain(sc->head);
-	return (longest_chain_dir_return(a, sc));
+	return find_longest_chain(sc->head);
 }
