@@ -22,14 +22,15 @@ static void			shortest_operation(t_ab_stack *s, t_operations *o)
 		o->line = ret;
 	else if ((ret = top_smaller_than_second(s->a, s->b)) != 0)
 		o->line = ret;
-	else if ((ret = top_greater_than_second(s->a)) != 0)
+	else if ((ret = top_greater_than_second(s->a, s->b)) != 0)
 		o->line = ret;
 	else
 		ft_error("Error: no operation found");
 }
 
-static t_operations	*get_operations(t_ab_stack *s)
+static t_operations	*get_operations(t_ab_stack *s, int debug)
 {
+	char *line;
 	t_operations	*o;
 
 	o = init_operations();
@@ -37,6 +38,13 @@ static t_operations	*get_operations(t_ab_stack *s)
 	{
 		shortest_operation(s, o);
 		s = find_operation(s, o->line);
+		if (debug)
+		{
+			show_stack(s, o->line, 1, 0);
+			if ((get_next_line(0, &line)) == -1)
+				ft_error("get_next_line error");
+			free(line);
+		}
 		o->s = ab_stack_copy(s);
 		if ((o->next = malloc(sizeof(t_operations))) == 0)
 			ft_error("Malloc failed");
@@ -68,7 +76,7 @@ int					main(int argc, char **argv)
 	}
 	verify_duplicates(s->a);
 	show_stack(s, "Init", bonus.visual, 0);
-	o = get_operations(s);
+	o = get_operations(s, bonus.live);
 	show_operations(o->head, bonus.visual, bonus.color);
 	free_operations(o->head);
 	return (0);

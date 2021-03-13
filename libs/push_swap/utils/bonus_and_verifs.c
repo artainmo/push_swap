@@ -50,11 +50,14 @@ void		verify_number_errors(int argc, char **argv)
 
 /*
 **Live let you make changes and visualize them right after each operation
+**Live is used in checker
+**Debug -d is used in push_swap to view in slow stack after each step
 */
 
 static char	**live_bonus(int *argc, char **argv, t_bonus *b)
 {
 	b->live = 1;
+	b->visual = 1;
 	*argc = *argc - 1;
 	return (&argv[1]);
 }
@@ -70,7 +73,7 @@ char		**verify_bonuses(int *argc, char **argv, t_bonus *b)
 			b->visual = 1;
 		if (ft_strcmp(argv[i], "-c"))
 			b->color = 1;
-		if (i == 1 && ft_strcmp(argv[i], "-l"))
+		if (i == 1 && (ft_strcmp(argv[i], "-l") || ft_strcmp(argv[i], "-d")))
 			return (live_bonus(argc, argv, b));
 		i++;
 	}

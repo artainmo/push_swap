@@ -47,11 +47,13 @@ int			all_ordered(t_stack *a, t_stack *b)
 	return (ordered(a));
 }
 
-static int	sa_ideal(t_stack *a)
+static int	sa_ideal(t_stack *a, t_stack *b)
 {
 	t_stack	*cpy;
 	int		ret;
 
+	if (b != 0)
+		return (0);
 	cpy = stack_copy(a);
 	cpy = ft_s(cpy);
 	ret = ordered(cpy);
@@ -59,11 +61,11 @@ static int	sa_ideal(t_stack *a)
 	return (ret);
 }
 
-char		*top_greater_than_second(t_stack *a)
+char		*top_greater_than_second(t_stack *a, t_stack *b)
 {
 	if (stack_end(a)->value < stack_end(a)->prev->value)
 		return (0);
-	if (sa_ideal(a))
+	if (sa_ideal(a, b))
 		return (malloc_operation("sa"));
 	else
 		return (malloc_operation("pb"));

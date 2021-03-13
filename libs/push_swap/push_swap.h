@@ -98,7 +98,7 @@ int				longest_chain_dir(t_stack *a);
 char			*shortest_path_to_correct_placement(t_stack *a);
 char			*b_values_ideal_position_a(t_stack *a, t_stack *b);
 char			*top_smaller_than_second(t_stack *a, t_stack *b);
-char			*top_greater_than_second(t_stack *a);
+char			*top_greater_than_second(t_stack *a, t_stack *b);
 t_ab_stack		*ab_stack_copy(t_ab_stack *s);
 
 #endif

@@ -16,7 +16,6 @@ static void	do_it_live(t_ab_stack *s)
 {
 	char *line;
 
-	show_stack(s, "Init:", 1, 0);
 	while (1)
 	{
 		if ((get_next_line(0, &line)) == -1)

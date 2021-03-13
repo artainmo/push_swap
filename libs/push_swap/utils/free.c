@@ -45,6 +45,7 @@ void	free_operations(t_operations *o)
 			free(rem->s->b);
 			free(rem->s);
 		}
+		free(rem->line);
 		free(rem);
 	}
 }
