@@ -14,7 +14,7 @@
 
 /*
 ** First created algorithm consisted of
-** top_greater_than_second2 -> top_greater_than_second2
+** top_greater_than_second2 -> top_greater_than_second
 */
 
 static void			shortest_operation(t_ab_stack *s, t_operations *o)
@@ -27,7 +27,7 @@ static void			shortest_operation(t_ab_stack *s, t_operations *o)
 		o->line = ret;
 	else if ((ret = top_smaller_than_second(s->a, s->b)) != 0)
 		o->line = ret;
-	else if ((ret = top_greater_than_second2(s->a)) != 0)
+	else if ((ret = top_greater_than_second(s->a, s->b)) != 0)
 		o->line = ret;
 	else
 		ft_error("Error: no operation found");

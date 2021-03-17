@@ -67,6 +67,8 @@ char		*top_greater_than_second(t_stack *a, t_stack *b)
 		return (0);
 	if (sa_ideal(a, b))
 		return (malloc_operation("sa"));
-	else
+	else if (ideal_next(a) != stack_next(a)->value)
 		return (malloc_operation("pb"));
+	else
+			return (malloc_operation("rra"));
 }
