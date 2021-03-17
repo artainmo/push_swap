@@ -16,7 +16,7 @@ t_stack		*ft_s(t_stack *a)
 {
 	int tmp;
 
-	if (a == 0)
+	if (a == 0 || a->next == 0)
 		return (a);
 	a = stack_end(a);
 	tmp = a->value;
@@ -51,7 +51,7 @@ t_stack		*ft_r(t_stack *a)
 {
 	int rem_last;
 
-	if (a == 0)
+	if (a == 0|| a->next == 0)
 		return (a);
 	a = stack_end(a);
 	rem_last = a->value;
@@ -68,7 +68,7 @@ t_stack		*ft_rr(t_stack *a)
 {
 	int rem_first;
 
-	if (a == 0)
+	if (a == 0|| a->next == 0)
 		return (a);
 	rem_first = a->value;
 	while (a->next != 0)
