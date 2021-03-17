@@ -57,8 +57,6 @@ static char	*goto_ideal_value_top_b(t_stack *a, t_stack *b)
 
 char		*out_longest_chain(t_stack *a, t_stack *b, t_sorted_chain *sc)
 {
-	printf("%p\n", sc);
-	fflush(stdout);
 	if (sc == 0)
 		return (malloc_operation("rra"));
 	if (sc->start > sc->end || stack_end(a)->number == sc->end)
