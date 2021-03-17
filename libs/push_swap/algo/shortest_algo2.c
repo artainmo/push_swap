@@ -67,8 +67,8 @@ char		*top_greater_than_second(t_stack *a, t_stack *b)
 		return (0);
 	if (sa_ideal(a, b))
 		return (malloc_operation("sa"));
-	else if (ideal_next(a) != stack_next(a)->value)
+	else if (ideal_next(stack_end(a)) != stack_next(stack_end(a))->value)
 		return (malloc_operation("pb"));
 	else
-			return (malloc_operation("rra"));
+		return out_longest_chain(a, b, longest_chain(a));
 }
