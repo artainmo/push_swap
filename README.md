@@ -22,7 +22,7 @@ Each time wanting to use ra, rra or sa check if rr or rrr or ss could be used in
 
 0. If all ordered -> shortest path to correct place (ra || rra)
 1. Top b value can be inserted in ideal position -> pa else if a ordered goto ideal pos for b
-2. If no longest chain exists -> rra
+2. If no longest chain exists -> sa if ideal else pb
 3. If inside longest chain:
 * goto fastest exit of longest chain
 4. If outside longest chain 
