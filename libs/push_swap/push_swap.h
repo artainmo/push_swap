@@ -91,6 +91,7 @@ int				ideal_next(t_stack *a);
 int				ideal_next2(t_stack *a, int ideal);
 t_stack			*stack_copy(t_stack *a);
 int				get_position_from_value(t_stack *a, int value);
+int	sa_ideal(t_stack *s);
 
 int				ordered(t_stack *a);
 int				all_ordered(t_stack *a, t_stack *b);

@@ -47,25 +47,34 @@ int			all_ordered(t_stack *a, t_stack *b)
 	return (ordered(a));
 }
 
-static int	sa_ideal(t_stack *a, t_stack *b)
-{
-	t_stack	*cpy;
-	int		ret;
+// static int	sa_ideal_all(t_stack *a, t_stack *b)
+// {
+// 	t_stack	*cpy;
+// 	int		ret;
+//
+// 	if (b != 0)
+// 		return (0);
+// 	cpy = stack_copy(a);
+// 	cpy = ft_s(cpy);
+// 	ret = ordered(cpy);
+// 	free_stack(cpy);
+// 	return (ret);
+// }
 
-	if (b != 0)
-		return (0);
-	cpy = stack_copy(a);
-	cpy = ft_s(cpy);
-	ret = ordered(cpy);
-	free_stack(cpy);
-	return (ret);
+int	sa_ideal(t_stack *s)
+{
+	if (stack_end(s)->prev->value == ideal_next2(s, stack_end(s)->value))
+		return (1);
+	if (ideal_next2(s, stack_end(s)->prev->value) == stack_begin(s)->value)
+		return (1);
+	return (0);
 }
 
 char		*top_greater_than_second(t_stack *a, t_stack *b)
 {
 	if (stack_end(a)->value < stack_end(a)->prev->value)
 		return (0);
-	if (sa_ideal(a, b))
+	if (sa_ideal(a))
 		return (malloc_operation("sa"));
 	else if (ideal_next(stack_end(a)) != stack_next(stack_end(a))->value)
 		return (malloc_operation("pb"));

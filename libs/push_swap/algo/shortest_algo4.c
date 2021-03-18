@@ -17,6 +17,22 @@
 **which cannot be equal to another number as all are unique
 */
 
+int stack_biggest_value(t_stack *a)
+{
+	t_stack	*i;
+	int		biggest;
+
+	i = stack_begin(a);
+	biggest = i->value;
+	while (i != 0)
+	{
+		if (biggest < i->value)
+			biggest = i->value;
+		i = i->next;
+	}
+	return biggest;
+}
+
 int	ideal_next(t_stack *a)
 {
 	t_stack	*i;
@@ -30,6 +46,8 @@ int	ideal_next(t_stack *a)
 			ideal = i->value;
 		i = i->next;
 	}
+	if (ideal == a->value)
+		return stack_biggest_value(a);
 	return (ideal);
 }
 
@@ -46,6 +64,8 @@ int	ideal_next2(t_stack *a, int value)
 			ideal = i->value;
 		i = i->next;
 	}
+	if (ideal == value)
+		return stack_biggest_value(a);
 	return (ideal);
 }
 

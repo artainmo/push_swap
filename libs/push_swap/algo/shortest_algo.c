@@ -25,15 +25,6 @@ char		*shortest_path_to_correct_placement(t_stack *a)
 	}
 }
 
-char		*b_values_ideal_position_a(t_stack *a, t_stack *b)
-{
-	if (b == 0)
-		return (0);
-	if (a->value == ideal_next2(a, stack_end(b)->value))
-		return (malloc_operation("pa"));
-	return (0);
-}
-
 static char	*goto_ideal_value_top_b(t_stack *a, t_stack *b)
 {
 	int pos;
@@ -47,6 +38,17 @@ static char	*goto_ideal_value_top_b(t_stack *a, t_stack *b)
 	{
 		return (malloc_operation("ra"));
 	}
+}
+
+char		*b_values_ideal_position_a(t_stack *a, t_stack *b)
+{
+	if (b == 0)
+		return (0);
+	if (a->value == ideal_next2(a, stack_end(b)->value))
+		return (malloc_operation("pa"));
+	if (ordered(a))
+		return goto_ideal_value_top_b(a, b);
+	return (0);
 }
 
 /*
@@ -74,6 +76,10 @@ char		*out_longest_chain(t_stack *a, t_stack *b, t_sorted_chain *sc)
 			return (malloc_operation("ra"));
 		}
 	}
+	if (sa_ideal(a))
+		return malloc_operation("sa");
+	else if (ideal_next(stack_end(a)) != stack_next(stack_end(a))->value)
+		return (malloc_operation("pb"));
 	if (stack_end(a)->number - sc->end - 1 < sc->start)
 	{
 		free_sorted_chain(sc->head);

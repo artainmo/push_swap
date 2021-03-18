@@ -12,12 +12,36 @@
 
 #include "push_swap_lib.h"
 
+static void inf_loop_protection(t_ab_stack *s, t_operations *o, char *last)
+{
+	if (last != 0 && ft_strcmp(last, "ra") && ft_strcmp(o->line, "rra"))
+	{
+		free(o->line);
+		o->line = malloc_operation("ra");
+	}
+	else if (last != 0 && ft_strcmp(last, "rra") && ft_strcmp(o->line, "ra"))
+	{
+		free(o->line);
+		o->line = malloc_operation("rra");
+	}
+	else if (last != 0 && ft_strcmp(last, "pa") && ft_strcmp(o->line, "pb"))
+	{
+		free(o->line);
+		o->line = out_longest_chain(s->a, s->b, longest_chain(s->a));
+	}
+	else if (last != 0 && ft_strcmp(last, "pb") && ft_strcmp(o->line, "pa"))
+	{
+		free(o->line);
+		o->line = out_longest_chain(s->a, s->b, longest_chain(s->a));
+	}
+}
+
 /*
 ** First created algorithm consisted of
 ** top_greater_than_second2 -> top_greater_than_second
 */
 
-static void			shortest_operation(t_ab_stack *s, t_operations *o)
+static char			*shortest_operation(t_ab_stack *s, t_operations *o, char *last)
 {
 	char *ret;
 
@@ -31,17 +55,21 @@ static void			shortest_operation(t_ab_stack *s, t_operations *o)
 		o->line = ret;
 	else
 		ft_error("Error: no operation found");
+	inf_loop_protection(s, o, last);
+	return o->line;
 }
 
 static t_operations	*get_operations(t_ab_stack *s, int debug)
 {
 	char *line;
 	t_operations	*o;
+	char *last;
 
 	o = init_operations();
+	last = 0;
 	while (!is_sorted(s->a, s->b))
 	{
-		shortest_operation(s, o);
+		last = shortest_operation(s, o, last);
 		s = find_operation(s, o->line);
 		if (debug)
 		{
@@ -57,7 +85,6 @@ static t_operations	*get_operations(t_ab_stack *s, int debug)
 		o = o->next;
 		o->next = 0;
 	}
-	free_ab_stack(s);
 	return (o);
 }
 
@@ -82,6 +109,7 @@ int					main(int argc, char **argv)
 	verify_duplicates(s->a);
 	show_stack(s, "Init", bonus.visual, 0);
 	o = get_operations(s, bonus.live);
+	free_ab_stack(s);
 	show_operations(o->head, bonus.visual, bonus.color);
 	free_operations(o->head);
 	return (0);
