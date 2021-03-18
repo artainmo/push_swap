@@ -17,6 +17,7 @@ IDEAL POSITION: Relative to following value depending on longest sorted chain.
 
 ## NEW
 IDEAL POSITION: Relative to following value depending on longest sorted chain.
+
 Each time wanting to use ra, rra or sa check if rr or rrr or ss could be used instead to sort b at same time
 
 0. If all ordered -> shortest path to correct place (ra || rra)
