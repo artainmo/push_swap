@@ -16,12 +16,14 @@ IDEAL POSITION: Relative to following value depending on longest sorted chain.
 - else rra
 
 ## NEW
+IDEAL POSITION: Relative to following value depending on longest sorted chain.
 Each time wanting to use ra, rra or sa check if rr or rrr or ss could be used instead to sort b at same time
+
 0. If all ordered -> shortest path to correct place (ra || rra)
 1. Top b value can be inserted in ideal position -> pa else if a ordered goto ideal pos for b
 2. If inside longest chain:
--> if b == 0 goto fastest exit of longest chain
--> else goto ideal pos b
+* if b == 0 goto fastest exit of longest chain
+* else goto ideal pos b
 3. If outside longest chain 
--> sa if ideal pos next to longest chain
--> else pb
+* sa if ideal pos next to longest chain
+* else pb
