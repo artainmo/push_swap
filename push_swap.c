@@ -12,24 +12,45 @@
 
 #include "push_swap_lib.h"
 
+static void ab(t_ab_stack *s, t_operations *o)
+{
+	if (s->b == 0 || s->b->next == 0)
+		return ;
+	if (ft_strcmp(o->line, "sa") && stack_end(s->b)->prev->value < stack_end(s->b)->value)
+	{
+			free(o->line);
+			o->line = malloc_operation("ss");
+	}
+	else if (ft_strcmp(o->line, "ra") && ordered(s->b) && !is_sorted(s->b, 0) && ft_strcmp(shortest_path_to_correct_placement(s->b), "ra"))
+	{
+		free(o->line);
+		o->line = malloc_operation("rr");
+	}
+	else if (ft_strcmp(o->line, "rra") && ordered(s->b) && !is_sorted(s->b, 0) && ft_strcmp(shortest_path_to_correct_placement(s->b), "rra"))
+	{
+		free(o->line);
+		o->line = malloc_operation("rrr");
+	}
+}
+
 static void inf_loop_protection(t_ab_stack *s, t_operations *o, char *last)
 {
-	if (last != 0 && ft_strcmp(last, "ra") && ft_strcmp(o->line, "rra"))
+	if (last != 0 && (ft_strcmp(last, "ra") ||  ft_strcmp(last, "rr")) && ft_strcmp(o->line, "rra"))
 	{
 		free(o->line);
 		o->line = malloc_operation("ra");
 	}
-	else if (last != 0 && ft_strcmp(last, "rra") && ft_strcmp(o->line, "ra"))
+	if (last != 0 && (ft_strcmp(last, "rra") || ft_strcmp(last, "rrr")) && ft_strcmp(o->line, "ra"))
 	{
 		free(o->line);
 		o->line = malloc_operation("rra");
 	}
-	else if (last != 0 && ft_strcmp(last, "pa") && ft_strcmp(o->line, "pb"))
+	if (last != 0 && ft_strcmp(last, "pa") && ft_strcmp(o->line, "pb"))
 	{
 		free(o->line);
 		o->line = out_longest_chain(s->a, s->b, longest_chain(s->a));
 	}
-	else if (last != 0 && ft_strcmp(last, "pb") && ft_strcmp(o->line, "pa"))
+	if (last != 0 && ft_strcmp(last, "pb") && ft_strcmp(o->line, "pa"))
 	{
 		free(o->line);
 		o->line = out_longest_chain(s->a, s->b, longest_chain(s->a));
@@ -44,18 +65,21 @@ static void inf_loop_protection(t_ab_stack *s, t_operations *o, char *last)
 static char			*shortest_operation(t_ab_stack *s, t_operations *o, char *last)
 {
 	char *ret;
-
+	// t_sorted_chain *sc;
+	//
+	// sc = longest_chain(a);
 	if (all_ordered(s->a, s->b))
 		o->line = shortest_path_to_correct_placement(s->a);
 	else if ((ret = b_values_ideal_position_a(s->a, s->b)) != 0)
 		o->line = ret;
-	else if ((ret = top_smaller_than_second(s->a, s->b)) != 0)
+	else if ((ret = inside_longest_chain(s->a)) != 0)
 		o->line = ret;
-	else if ((ret = top_greater_than_second(s->a, s->b)) != 0)
+	else if ((ret = outside_longest_chain(s->a)) != 0)
 		o->line = ret;
 	else
 		ft_error("Error: no operation found");
 	inf_loop_protection(s, o, last);
+	ab(s, o);
 	return o->line;
 }
 

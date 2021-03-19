@@ -89,9 +89,11 @@ int				stack_highest_value_pos(t_stack *s);
 t_stack			*stack_next(t_stack *s);
 int				ideal_next(t_stack *a);
 int				ideal_next2(t_stack *a, int ideal);
+int is_inside_longest_chain(int value, t_sorted_chain *sc);
 t_stack			*stack_copy(t_stack *a);
 int				get_position_from_value(t_stack *a, int value);
 int	sa_ideal(t_stack *s);
+int	sa_ideal2(t_stack *s, t_sorted_chain *sc);
 
 int				ordered(t_stack *a);
 int				all_ordered(t_stack *a, t_stack *b);
@@ -103,5 +105,8 @@ char			*top_smaller_than_second(t_stack *a, t_stack *b);
 char			*top_greater_than_second(t_stack *a, t_stack *b);
 char			*top_greater_than_second2(t_stack *a);
 t_ab_stack		*ab_stack_copy(t_ab_stack *s);
+
+char *outside_longest_chain(t_stack *a);
+char *inside_longest_chain(t_stack *a);
 
 #endif

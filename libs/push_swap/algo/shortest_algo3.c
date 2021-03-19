@@ -44,6 +44,7 @@ static t_sorted_chain	*get_chains(t_stack *a)
 	if ((sc = malloc(sizeof(t_sorted_chain))) == 0)
 		ft_error("Malloc failed");
 	sc->head = sc;
+	sc->next = 0;
 	while (a != 0)
 	{
 		chain(a, sc);
@@ -56,6 +57,7 @@ static t_sorted_chain	*get_chains(t_stack *a)
 			ft_error("Malloc failed");
 		sc->next->head = sc->head;
 		sc = sc->next;
+		sc->next = 0;
 		a = a->next;
 	}
 	return (sc);

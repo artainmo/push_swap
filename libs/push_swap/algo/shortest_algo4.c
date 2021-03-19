@@ -12,10 +12,14 @@
 
 #include "../push_swap.h"
 
-/*
-**If no ideal next because is smallest value -> returns itself
-**which cannot be equal to another number as all are unique
-*/
+int is_inside_longest_chain(int value, t_sorted_chain *sc)
+{
+	if (sc == 0)
+		return (1);
+	else if (value <= sc->start && value >= sc->end)
+		return (1);
+	return (0);
+}
 
 int stack_biggest_value(t_stack *a)
 {
@@ -32,6 +36,11 @@ int stack_biggest_value(t_stack *a)
 	}
 	return biggest;
 }
+
+/*
+**If no ideal next because is smallest value -> returns itself
+**which cannot be equal to another number as all are unique
+*/
 
 int	ideal_next(t_stack *a)
 {
