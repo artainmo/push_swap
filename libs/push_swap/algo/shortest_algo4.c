@@ -12,29 +12,13 @@
 
 #include "../push_swap.h"
 
-int is_inside_longest_chain(int value, t_sorted_chain *sc)
+int is_inside_longest_chain(int value, t_stack *a, t_sorted_chain *sc)
 {
 	if (sc == 0)
-		return (1);
-	else if (value <= sc->start && value >= sc->end)
+		return (2);
+	else if (value <= get_value_from_position(a, sc->start) && value >= get_value_from_position(a, sc->end))
 		return (1);
 	return (0);
-}
-
-int stack_biggest_value(t_stack *a)
-{
-	t_stack	*i;
-	int		biggest;
-
-	i = stack_begin(a);
-	biggest = i->value;
-	while (i != 0)
-	{
-		if (biggest < i->value)
-			biggest = i->value;
-		i = i->next;
-	}
-	return biggest;
 }
 
 /*

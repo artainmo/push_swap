@@ -86,27 +86,28 @@ char			*malloc_operation(char *operation);
 
 t_stack			*stack_position(t_stack *s, int number);
 int				stack_highest_value_pos(t_stack *s);
+int stack_biggest_value(t_stack *a);
 t_stack			*stack_next(t_stack *s);
 int				ideal_next(t_stack *a);
 int				ideal_next2(t_stack *a, int ideal);
-int is_inside_longest_chain(int value, t_sorted_chain *sc);
+int is_inside_longest_chain(int value, t_stack *a, t_sorted_chain *sc);
 t_stack			*stack_copy(t_stack *a);
 int				get_position_from_value(t_stack *a, int value);
+int		get_value_from_position(t_stack *a, int pos);
 int	sa_ideal(t_stack *s);
 int	sa_ideal2(t_stack *s, t_sorted_chain *sc);
 
 int				ordered(t_stack *a);
 int				all_ordered(t_stack *a, t_stack *b);
 t_sorted_chain	*longest_chain(t_stack *a);
-char		*out_longest_chain(t_stack *a, t_stack *b, t_sorted_chain *sc);
+// char		*out_longest_chain(t_stack *a, t_stack *b, t_sorted_chain *sc);
 char			*shortest_path_to_correct_placement(t_stack *a);
-char			*b_values_ideal_position_a(t_stack *a, t_stack *b);
-char			*top_smaller_than_second(t_stack *a, t_stack *b);
-char			*top_greater_than_second(t_stack *a, t_stack *b);
-char			*top_greater_than_second2(t_stack *a);
+char			*b_ideal_position_a(t_stack *a, t_stack *b, t_sorted_chain *sc);
+// char			*top_smaller_than_second(t_stack *a, t_stack *b);
+// char			*top_greater_than_second(t_stack *a, t_stack *b);
 t_ab_stack		*ab_stack_copy(t_ab_stack *s);
 
-char *outside_longest_chain(t_stack *a);
-char *inside_longest_chain(t_stack *a);
+char *outside_longest_chain(t_stack *a, t_sorted_chain *sc);
+char *inside_longest_chain(t_stack *a, t_sorted_chain *sc);
 
 #endif

@@ -31,29 +31,20 @@ static char	*goto_ideal_value_top_b(t_stack *a, t_stack *b)
 
 	pos = get_position_from_value(a, ideal_next2(a, stack_end(b)->value));
 	if (pos <= stack_end(a)->number - pos + 1)
-	{
 		return (malloc_operation("rra"));
-	}
 	else
-	{
 		return (malloc_operation("ra"));
-	}
 }
 
-char		*b_values_ideal_position_a(t_stack *a, t_stack *b)
+char		*b_ideal_position_a(t_stack *a, t_stack *b, t_sorted_chain *sc)
 {
-	t_sorted_chain *sc;
-
-	sc = longest_chain(a);
 	if (b == 0)
 		return (0);
-	if (a->value == ideal_next2(a, stack_end(b)->value) && is_inside_longest_chain(a->value, sc))
+	if (a->value == ideal_next2(a, stack_end(b)->value) && is_inside_longest_chain(a->value, a, sc))
 	{
 		return (malloc_operation("pa"));
 	}
-	// printf("%i %i", ideal_next2(a, stack_end(a)->value), stack_end(b)->value);
-	// fflush(stdout);
-	if (ideal_next2(a, stack_end(a)->value) < stack_end(b)->value && stack_end(b)->value < stack_end(a)->value && is_inside_longest_chain(stack_end(a)->value, sc))
+	if (ideal_next2(a, stack_end(a)->value) < stack_end(b)->value && stack_end(b)->value < stack_end(a)->value && is_inside_longest_chain(stack_end(a)->value, a, sc))
 	{
 		return (malloc_operation("pa"));
 	}
@@ -68,126 +59,80 @@ char		*b_values_ideal_position_a(t_stack *a, t_stack *b)
 **Last two are in case top a outside longests sorted chain
 */
 
-char		*out_longest_chain(t_stack *a, t_stack *b, t_sorted_chain *sc)
-{
-	if (sc == 0)
-		return (malloc_operation("rra"));
-	if (sc->start > sc->end || stack_end(a)->number == sc->end)
-	{
-		if (stack_end(a)->number - sc->start - 1 > sc->end)
-		{
-			free_sorted_chain(sc->head);
-			if (b != 0)
-				return (goto_ideal_value_top_b(a, b));
-			return (malloc_operation("rra"));
-		}
-		else
-		{
-			free_sorted_chain(sc->head);
-			return (malloc_operation("ra"));
-		}
-	}
-	if (sa_ideal(a))
-		return malloc_operation("sa");
-	else if (ideal_next(stack_end(a)) != stack_next(stack_end(a))->value)
-		return (malloc_operation("pb"));
-	if (stack_end(a)->number - sc->end - 1 < sc->start)
-	{
-		free_sorted_chain(sc->head);
-		return (malloc_operation("rra"));
-	}
-	else
-	{
-		free_sorted_chain(sc->head);
-		return (malloc_operation("ra"));
-	}
-}
-
-char		*top_smaller_than_second(t_stack *a, t_stack *b)
-{
-	if (stack_end(a)->value > stack_end(a)->prev->value)
-		return (0);
-	return out_longest_chain(a, b, longest_chain(a));
-}
+// char		*out_longest_chain(t_stack *a, t_stack *b, t_sorted_chain *sc)
+// {
+// 	if (sc == 0)
+// 		return (malloc_operation("rra"));
+// 	if (sc->start > sc->end || stack_end(a)->number == sc->end)
+// 	{
+// 		if (stack_end(a)->number - sc->start - 1 > sc->end)
+// 		{
+// 			free_sorted_chain(sc->head);
+// 			if (b != 0)
+// 				return (goto_ideal_value_top_b(a, b));
+// 			return (malloc_operation("rra"));
+// 		}
+// 		else
+// 		{
+// 			free_sorted_chain(sc->head);
+// 			return (malloc_operation("ra"));
+// 		}
+// 	}
+// 	if (sa_ideal(a))
+// 		return malloc_operation("sa");
+// 	else if (ideal_next(stack_end(a)) != stack_next(stack_end(a))->value)
+// 		return (malloc_operation("pb"));
+// 	if (stack_end(a)->number - sc->end - 1 < sc->start)
+// 	{
+// 		free_sorted_chain(sc->head);
+// 		return (malloc_operation("rra"));
+// 	}
+// 	else
+// 	{
+// 		free_sorted_chain(sc->head);
+// 		return (malloc_operation("ra"));
+// 	}
+// }
+//
+// char		*top_smaller_than_second(t_stack *a, t_stack *b)
+// {
+// 	if (stack_end(a)->value > stack_end(a)->prev->value)
+// 		return (0);
+// 	return out_longest_chain(a, b, longest_chain(a));
+// }
 
 char *closest_exit(t_stack *a, t_sorted_chain *sc)
 {
 	if (stack_end(a)->number - sc->start - 1 > sc->end)
-	{
-		free_sorted_chain(sc->head);
 		return (malloc_operation("rra"));
-	}
 	else
-	{
-		free_sorted_chain(sc->head);
 		return (malloc_operation("ra"));
-	}
 }
 
-char *inside_longest_chain(t_stack *a)
+char *inside_longest_chain(t_stack *a, t_sorted_chain *sc)
 {
-	t_sorted_chain *sc;
-
-	sc = longest_chain(a);
-	if (sc == 0)
-	{
-		if (sa_ideal(a))
-			return (malloc_operation("sa"));
-		return (malloc_operation("pb"));
-	}
-	if (sc->start > sc->end || stack_end(a)->number == sc->end)
-	{
-		// if (b == 0)
+	if (is_inside_longest_chain(stack_end(a)->value, a, sc) == 1)
 		return closest_exit(a, sc);
-		// free_sorted_chain(sc->head);
-		// return goto_ideal_value_top_b(a, b);
-	}
-	free_sorted_chain(sc->head);
 	return 0;
 }
 
 char *away_longest_chain(t_stack *a, t_sorted_chain *sc)
 {
+	if (sc == 0)
+		return malloc_operation("rra");
 	if (stack_end(a)->number - sc->end - 1 < sc->start)
-	{
-		free_sorted_chain(sc->head);
 		return (malloc_operation("rra"));
-	}
 	else
-	{
-		free_sorted_chain(sc->head);
 		return (malloc_operation("ra"));
-	}
 }
 
-char *outside_longest_chain(t_stack *a)
+char *outside_longest_chain(t_stack *a, t_sorted_chain *sc)
 {
-	t_sorted_chain *sc;
-
-	sc = longest_chain(a);
-	if (sc == 0)
-	{
-		free_sorted_chain(sc->head);
-		return malloc_operation("rra");
-	}
-	if (sc->start > sc->end || stack_end(a)->number == sc->end)
-	{
+	if (is_inside_longest_chain(stack_end(a)->value, a, sc) == 1)
 		return 0;
-	}
 	if (sa_ideal2(a, sc))
-	{
 		return (malloc_operation("sa"));
-	}
-	else if (!is_inside_longest_chain(stack_end(a)->value, sc)) //ideal_next(stack_end(a)) != stack_next(stack_end(a))->value
-	{
-		return (malloc_operation("pb"));
-	}
-	else
-	{
-		return away_longest_chain(a, sc);
-	}
-	free_sorted_chain(sc->head);
-	return 0;
+	return (malloc_operation("pb"));
 }
 
 /*

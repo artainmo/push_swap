@@ -72,6 +72,8 @@ int	sa_ideal(t_stack *s)
 
 int	sa_ideal2(t_stack *s, t_sorted_chain *sc)
 {
+	if (sc == 0)
+		return sa_ideal(s);
 	if (stack_end(s)->prev->value == ideal_next2(s, stack_end(s)->value) && stack_end(s)->prev->value == sc->end)
 		return (1);
 	if (ideal_next2(s, stack_end(s)->prev->value) == stack_begin(s)->value && stack_begin(s)->value == sc->start)
@@ -79,14 +81,14 @@ int	sa_ideal2(t_stack *s, t_sorted_chain *sc)
 	return (0);
 }
 
-char		*top_greater_than_second(t_stack *a, t_stack *b)
-{
-	if (stack_end(a)->value < stack_end(a)->prev->value)
-		return (0);
-	if (sa_ideal(a))
-		return (malloc_operation("sa"));
-	else if (ideal_next(stack_end(a)) != stack_next(stack_end(a))->value)
-		return (malloc_operation("pb"));
-	else
-		return out_longest_chain(a, b, longest_chain(a));
-}
+// char		*top_greater_than_second(t_stack *a, t_stack *b)
+// {
+// 	if (stack_end(a)->value < stack_end(a)->prev->value)
+// 		return (0);
+// 	if (sa_ideal(a))
+// 		return (malloc_operation("sa"));
+// 	else if (ideal_next(stack_end(a)) != stack_next(stack_end(a))->value)
+// 		return (malloc_operation("pb"));
+// 	else
+// 		return out_longest_chain(a, b, longest_chain(a));
+// }

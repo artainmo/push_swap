@@ -16,7 +16,7 @@ static void ab(t_ab_stack *s, t_operations *o)
 {
 	if (s->b == 0 || s->b->next == 0)
 		return ;
-	if (ft_strcmp(o->line, "sa") && stack_end(s->b)->prev->value < stack_end(s->b)->value)
+	if (ft_strcmp(o->line, "sa") && stack_end(s->b)->prev->value > stack_end(s->b)->value)
 	{
 			free(o->line);
 			o->line = malloc_operation("ss");
@@ -33,7 +33,7 @@ static void ab(t_ab_stack *s, t_operations *o)
 	}
 }
 
-static void inf_loop_protection(t_ab_stack *s, t_operations *o, char *last)
+static void inf_loop_protection(t_operations *o, char *last)
 {
 	if (last != 0 && (ft_strcmp(last, "ra") ||  ft_strcmp(last, "rr")) && ft_strcmp(o->line, "rra"))
 	{
@@ -48,12 +48,12 @@ static void inf_loop_protection(t_ab_stack *s, t_operations *o, char *last)
 	if (last != 0 && ft_strcmp(last, "pa") && ft_strcmp(o->line, "pb"))
 	{
 		free(o->line);
-		o->line = out_longest_chain(s->a, s->b, longest_chain(s->a));
+		o->line = malloc_operation("rra");
 	}
 	if (last != 0 && ft_strcmp(last, "pb") && ft_strcmp(o->line, "pa"))
 	{
 		free(o->line);
-		o->line = out_longest_chain(s->a, s->b, longest_chain(s->a));
+		o->line = malloc_operation("rra");
 	}
 }
 
@@ -65,20 +65,21 @@ static void inf_loop_protection(t_ab_stack *s, t_operations *o, char *last)
 static char			*shortest_operation(t_ab_stack *s, t_operations *o, char *last)
 {
 	char *ret;
-	// t_sorted_chain *sc;
-	//
-	// sc = longest_chain(a);
+	t_sorted_chain *sc;
+
+	sc = longest_chain(s->a);
 	if (all_ordered(s->a, s->b))
 		o->line = shortest_path_to_correct_placement(s->a);
-	else if ((ret = b_values_ideal_position_a(s->a, s->b)) != 0)
+	else if ((ret = b_ideal_position_a(s->a, s->b, sc)) != 0)
 		o->line = ret;
-	else if ((ret = inside_longest_chain(s->a)) != 0)
+	else if ((ret = inside_longest_chain(s->a, sc)) != 0)
 		o->line = ret;
-	else if ((ret = outside_longest_chain(s->a)) != 0)
+	else if ((ret = outside_longest_chain(s->a, sc)) != 0)
 		o->line = ret;
 	else
 		ft_error("Error: no operation found");
-	inf_loop_protection(s, o, last);
+	free_sorted_chain(sc);
+	inf_loop_protection(o, last);
 	ab(s, o);
 	return o->line;
 }
