@@ -40,8 +40,9 @@ Each time wanting to use ra, rra or sa check if rr or rrr or ss could be used in
 
 0. If all ordered -> shortest path to correct place (ra || rra)
 1. Top b value can be inserted in ideal position -> pa else if a ordered goto ideal pos for b
-2. If sa created ideal position -> sa
-3. Fill stack b
+2. If a ordered shortest path to ideal position for pa
+3. If sa created ideal position -> sa
+4. Fill stack b
 * If b == 0 fill it with smallest value not in longest chain
 * If top a is ideal for b -> pb
 * Else goto ideal position in a for next b
