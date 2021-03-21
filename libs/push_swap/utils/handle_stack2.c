@@ -41,6 +41,7 @@ int		stack_highest_value_pos(t_stack *s)
 	int num;
 
 	big = -2147483648;
+	num = -2147483648;
 	while (s != 0)
 	{
 		if (s->value > big)
@@ -50,6 +51,26 @@ int		stack_highest_value_pos(t_stack *s)
 		}
 		s = s->next;
 	}
+	return (num);
+}
+
+int		stack_lowest_value_pos(t_stack *s)
+{
+	int small;
+	int num;
+
+	small = 2147483647;
+	num = 2147483647;
+	while (s != 0)
+	{
+		if (s->value < small)
+		{
+			small = s->value;
+			num = s->number;
+		}
+		s = s->next;
+	}
+	// write(1, "3", 1);
 	return (num);
 }
 
@@ -75,12 +96,17 @@ int		get_position_from_value(t_stack *a, int value)
 
 int		get_value_from_position(t_stack *a, int pos)
 {
+	a = stack_begin(a);
 	while (a != 0)
 	{
+		// printf("num:%i\n", a->number);
+		// fflush(stdout);
 		if (a->number == pos)
 			return (a->value);
 		a = a->next;
 	}
+	printf("pos:%i\n", pos);
+	fflush(stdout);
 	ft_error("get_value_from_pos function error");
 	return (0);
 }

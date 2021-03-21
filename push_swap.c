@@ -21,12 +21,12 @@ static void ab(t_ab_stack *s, t_operations *o)
 			free(o->line);
 			o->line = malloc_operation("ss");
 	}
-	else if (ft_strcmp(o->line, "ra") && ordered(s->b) && !is_sorted(s->b, 0) && ft_strcmp(shortest_path_to_correct_placement(s->b), "ra"))
+	else if (ft_strcmp(o->line, "ra") && orderedb(s->b) && !is_sortedb(s->b) && ft_strcmp(shortest_path_to_correct_placementb(s->b), "ra"))
 	{
 		free(o->line);
 		o->line = malloc_operation("rr");
 	}
-	else if (ft_strcmp(o->line, "rra") && ordered(s->b) && !is_sorted(s->b, 0) && ft_strcmp(shortest_path_to_correct_placement(s->b), "rra"))
+	else if (ft_strcmp(o->line, "rra") && orderedb(s->b) && !is_sortedb(s->b) && ft_strcmp(shortest_path_to_correct_placementb(s->b), "rra"))
 	{
 		free(o->line);
 		o->line = malloc_operation("rrr");
@@ -55,6 +55,11 @@ static void inf_loop_protection(t_operations *o, char *last)
 		free(o->line);
 		o->line = malloc_operation("rra");
 	}
+	if (last != 0 && ft_strcmp(last, "sa") && ft_strcmp(o->line, "sa"))
+	{
+		free(o->line);
+		o->line = malloc_operation("rra");
+	}
 }
 
 /*
@@ -72,9 +77,9 @@ static char			*shortest_operation(t_ab_stack *s, t_operations *o, char *last)
 		o->line = shortest_path_to_correct_placement(s->a);
 	else if ((ret = b_ideal_position_a(s->a, s->b, sc)) != 0)
 		o->line = ret;
-	else if ((ret = inside_longest_chain(s->a, sc)) != 0)
-		o->line = ret;
-	else if ((ret = outside_longest_chain(s->a, sc)) != 0)
+	else if (sa_ideal2(s->a, sc))
+		o->line  = malloc_operation("sa");
+	else if ((ret = fill_b(s->a, s->b, sc)) != 0)
 		o->line = ret;
 	else
 		ft_error("Error: no operation found");

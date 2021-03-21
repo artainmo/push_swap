@@ -86,6 +86,7 @@ char			*malloc_operation(char *operation);
 
 t_stack			*stack_position(t_stack *s, int number);
 int				stack_highest_value_pos(t_stack *s);
+int		stack_lowest_value_pos(t_stack *s);
 int stack_biggest_value(t_stack *a);
 t_stack			*stack_next(t_stack *s);
 int				ideal_next(t_stack *a);
@@ -102,12 +103,22 @@ int				all_ordered(t_stack *a, t_stack *b);
 t_sorted_chain	*longest_chain(t_stack *a);
 // char		*out_longest_chain(t_stack *a, t_stack *b, t_sorted_chain *sc);
 char			*shortest_path_to_correct_placement(t_stack *a);
+char		*shortest_path_to_correct_placementb(t_stack *a);
+char	*goto_ideal_value_top_b(t_stack *a, t_stack *b);
 char			*b_ideal_position_a(t_stack *a, t_stack *b, t_sorted_chain *sc);
 // char			*top_smaller_than_second(t_stack *a, t_stack *b);
 // char			*top_greater_than_second(t_stack *a, t_stack *b);
 t_ab_stack		*ab_stack_copy(t_ab_stack *s);
 
-char *outside_longest_chain(t_stack *a, t_sorted_chain *sc);
-char *inside_longest_chain(t_stack *a, t_sorted_chain *sc);
+// char *outside_longest_chain(t_stack *a, t_sorted_chain *sc);
+// char *inside_longest_chain(t_stack *a, t_sorted_chain *sc);
+
+char *fill_b(t_stack *a, t_stack *b, t_sorted_chain *sc);
+int	ideal_nextb(t_stack *a, t_stack *b, t_sorted_chain *sc);
+int		smallest_value_outside_longest_chain_num(t_stack *s, t_sorted_chain *sc);
+int			is_sortedb(t_stack *b);
+int			orderedb(t_stack *b);
+int		smallest_value_num(t_stack *s);
+int	ideal_nextb2(t_stack *a, t_stack *b);
 
 #endif

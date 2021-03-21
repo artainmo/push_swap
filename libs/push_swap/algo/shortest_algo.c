@@ -25,11 +25,24 @@ char		*shortest_path_to_correct_placement(t_stack *a)
 	}
 }
 
-static char	*goto_ideal_value_top_b(t_stack *a, t_stack *b)
+char		*shortest_path_to_correct_placementb(t_stack *a)
+{
+	if (stack_end(a)->number - stack_highest_value_pos(a) + 1
+			< stack_highest_value_pos(a))
+	{
+		return (malloc_operation("rra"));
+	}
+	else
+	{
+		return (malloc_operation("ra"));
+	}
+}
+
+char	*goto_ideal_value_top_b(t_stack *a, t_stack *b)
 {
 	int pos;
 
-	pos = get_position_from_value(a, ideal_next2(a, stack_end(b)->value));
+	pos = get_position_from_value(a, ideal_nextb2(a, b));
 	if (pos <= stack_end(a)->number - pos + 1)
 		return (malloc_operation("rra"));
 	else
@@ -38,19 +51,26 @@ static char	*goto_ideal_value_top_b(t_stack *a, t_stack *b)
 
 char		*b_ideal_position_a(t_stack *a, t_stack *b, t_sorted_chain *sc)
 {
-	if (b == 0)
+	if (b == 0 || !ordered(a))
 		return (0);
+	// if (sc != 0)
+	// {
+	// 	printf("sc: %i %i\n", get_value_from_position(a, sc->start), get_value_from_position(a, sc->end));
+	// 	fflush(stdout);
+	// }
+	// printf("1: %i %i %i %i\n", stack_end(b)->value, ideal_next2(a, stack_end(b)->value), a->value, is_inside_longest_chain(a->value, a, sc));
+	// fflush(stdout);
 	if (a->value == ideal_next2(a, stack_end(b)->value) && is_inside_longest_chain(a->value, a, sc))
 	{
 		return (malloc_operation("pa"));
 	}
+	// printf("2: %i %i\n", stack_end(a)->value, ideal_next2(a, stack_end(a)->value));
+	// fflush(stdout);
 	if (ideal_next2(a, stack_end(a)->value) < stack_end(b)->value && stack_end(b)->value < stack_end(a)->value && is_inside_longest_chain(stack_end(a)->value, a, sc))
 	{
 		return (malloc_operation("pa"));
 	}
-	if (ordered(a))
-		return goto_ideal_value_top_b(a, b);
-	return (0);
+	return goto_ideal_value_top_b(a, b);
 }
 
 /*
@@ -101,38 +121,47 @@ char		*b_ideal_position_a(t_stack *a, t_stack *b, t_sorted_chain *sc)
 // 	return out_longest_chain(a, b, longest_chain(a));
 // }
 
-char *closest_exit(t_stack *a, t_sorted_chain *sc)
+// char *closest_exit(t_stack *a, t_sorted_chain *sc)
+// {
+// 	if (stack_end(a)->number - sc->start - 1 > sc->end)
+// 		return (malloc_operation("rra"));
+// 	else
+// 		return (malloc_operation("ra"));
+// }
+
+// char *inside_longest_chain(t_stack *a, t_sorted_chain *sc)
+// {
+// 	if (is_inside_longest_chain(stack_end(a)->value, a, sc) == 1)
+// 		return closest_exit(a, sc);
+// 	return 0;
+// }
+//
+// char *away_longest_chain(t_stack *a, t_sorted_chain *sc)
+// {
+// 	if (sc == 0)
+// 		return malloc_operation("rra");
+// 	if (stack_end(a)->number - sc->end - 1 < sc->start)
+// 		return (malloc_operation("rra"));
+// 	else
+// 		return (malloc_operation("ra"));
+// }
+
+char *goto_num(int pos, t_stack *a)
 {
-	if (stack_end(a)->number - sc->start - 1 > sc->end)
+	// printf("gtn: %i %i\n", pos + 1, stack_end(a)->number - pos);
+	// fflush(stdout);
+	if (pos + 1 <= stack_end(a)->number - pos)
 		return (malloc_operation("rra"));
 	else
 		return (malloc_operation("ra"));
 }
 
-char *inside_longest_chain(t_stack *a, t_sorted_chain *sc)
+char *fill_b(t_stack *a, t_stack *b, t_sorted_chain *sc)
 {
-	if (is_inside_longest_chain(stack_end(a)->value, a, sc) == 1)
-		return closest_exit(a, sc);
-	return 0;
-}
-
-char *away_longest_chain(t_stack *a, t_sorted_chain *sc)
-{
-	if (sc == 0)
-		return malloc_operation("rra");
-	if (stack_end(a)->number - sc->end - 1 < sc->start)
-		return (malloc_operation("rra"));
+	if ((b == 0 && stack_end(a)->value != ideal_nextb(a, b, sc)) || ideal_nextb(a, b, sc) != stack_end(a)->value)
+		return goto_num(get_position_from_value(a, ideal_nextb(a, b, sc)), a);
 	else
-		return (malloc_operation("ra"));
-}
-
-char *outside_longest_chain(t_stack *a, t_sorted_chain *sc)
-{
-	if (is_inside_longest_chain(stack_end(a)->value, a, sc) == 1)
-		return 0;
-	if (sa_ideal2(a, sc))
-		return (malloc_operation("sa"));
-	return (malloc_operation("pb"));
+		return (malloc_operation("pb"));
 }
 
 /*

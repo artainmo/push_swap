@@ -16,7 +16,13 @@ int is_inside_longest_chain(int value, t_stack *a, t_sorted_chain *sc)
 {
 	if (sc == 0)
 		return (2);
-	else if (value <= get_value_from_position(a, sc->start) && value >= get_value_from_position(a, sc->end))
+	// printf("ILC: %i %i %i %i %i\n", value, sc->start, get_value_from_position(a, sc->start), sc->end, get_value_from_position(a, sc->end));
+	// fflush(stdout);
+	if (value <= get_value_from_position(a, sc->start) && value >= get_value_from_position(a, sc->end))
+		return (1);
+	if (value >= get_value_from_position(a, sc->start) && get_value_from_position(a, sc->start) <= get_value_from_position(a, sc->end) && value >= get_value_from_position(a, sc->end))
+		return (1);
+	if (value <= get_value_from_position(a, sc->start) && get_value_from_position(a, sc->start) <= get_value_from_position(a, sc->end))
 		return (1);
 	return (0);
 }
@@ -59,6 +65,93 @@ int	ideal_next2(t_stack *a, int value)
 	}
 	if (ideal == value)
 		return stack_biggest_value(a);
+	return (ideal);
+}
+
+int		smallest_value_outside_longest_chain_num(t_stack *s, t_sorted_chain *sc)
+{
+	int small;
+	int num;
+
+	small = 2147483647;
+	num = 2147483647;
+	while (s != 0)
+	{
+		// printf("sm: %i %i\n", s->value, is_inside_longest_chain(s->value, s, sc));
+		// fflush(stdout);
+		if (s->value < small && (is_inside_longest_chain(s->value, s, sc) != 1))
+		{
+			small = s->value;
+			num = s->number;
+		}
+		s = s->next;
+	}
+	// write(1, "1", 1);
+	return (num);
+}
+
+int		smallest_value_num(t_stack *s)
+{
+	int small;
+	int num;
+
+	small = 2147483647;
+	num = 2147483647;
+	while (s != 0)
+	{
+		// printf("sm: %i %i\n", s->value, is_inside_longest_chain(s->value, s, sc));
+		// fflush(stdout);
+		if (s->value < small)
+		{
+			small = s->value;
+			num = s->number;
+		}
+		s = s->next;
+	}
+	// write(1, "2", 1);
+	return (num);
+}
+
+int	ideal_nextb(t_stack *a, t_stack *b, t_sorted_chain *sc)
+{
+	t_stack	*i;
+	int		ideal;
+	int value;
+
+	i = stack_begin(a);
+	if (b == 0)
+		return get_value_from_position(a, smallest_value_outside_longest_chain_num(a, sc));
+	value = stack_end(b)->value;
+	ideal = value;
+	while (i != 0)
+	{
+		if (value - i->value < 0 && (i->value < ideal || ideal == value) && !is_inside_longest_chain(i->value, a, sc))
+			ideal = i->value;
+		i = i->next;
+	}
+	if (ideal == value)
+		return get_value_from_position(a, smallest_value_outside_longest_chain_num(a, sc));
+	return (ideal);
+}
+
+
+int	ideal_nextb2(t_stack *a, t_stack *b)
+{
+	t_stack	*i;
+	int		ideal;
+	int value;
+
+	i = stack_begin(a);
+	value = stack_end(b)->value;
+	ideal = value;
+	while (i != 0)
+	{
+		if (value - i->value < 0 && (i->value < ideal || ideal == value))
+			ideal = i->value;
+		i = i->next;
+	}
+	if (ideal == value)
+		return get_value_from_position(a, smallest_value_num(a));
 	return (ideal);
 }
 
