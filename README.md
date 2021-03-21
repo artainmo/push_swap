@@ -33,16 +33,16 @@ Each time wanting to use ra, rra or sa check if rr or rrr or ss could be used in
 
 ## Algorithm for medium to difficult
 IDEAL POSITION: Relative to following or following value depending on longest sorted chain.
+ORDERED: All values in correct position relative to each other but not relative to stack itself
 
 Each time wanting to use ra, rra or sa check if rr or rrr or ss could be used instead to sort b at same time
 -> if topb < topb - 1 -> ss (because b gets inserted inversely into a must ideally be inversed)
 -> if b is ordered but not ideally rr or rrr until ideal position
 
-0. If all ordered -> shortest path to correct place (ra || rra)
-1. Top b value can be inserted in ideal position -> pa else if a ordered goto ideal pos for b
-2. If a ordered shortest path to ideal position for pa
-3. If sa created ideal position -> sa
-4. Fill stack b
+0. If a ordered and b empty -> shortest path to correct place (ra || rra)
+1. Top b value can be inserted in ideal position and a is ordered -> pa else goto ideal pos for pa
+2. If sa created ideal position -> sa
+3. Fill stack b
 * If b == 0 fill it with smallest value not in longest chain
 * If top a is ideal for b -> pb
 * Else goto ideal position in a for next b
