@@ -31,7 +31,7 @@ Each time wanting to use ra, rra or sa check if rr or rrr or ss could be used in
 * sa if ideal pos next to longest chain
 * else pb
 
-## Algorithm for medium to difficult
+## Latest best performing algorithm
 IDEAL POSITION: Relative to following or following value depending on longest sorted chain.
 ORDERED: All values in correct position relative to each other but not relative to stack itself
 
