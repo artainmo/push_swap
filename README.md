@@ -35,14 +35,17 @@ Each time wanting to use ra, rra or sa check if rr or rrr or ss could be used in
 IDEAL POSITION: Relative to following or following value depending on longest sorted chain.
 ORDERED: All values in correct position relative to each other but not relative to stack itself
 
-Each time wanting to use ra, rra or sa check if rr or rrr or ss could be used instead to sort b at same time
--> if topb < topb - 1 -> ss (because b gets inserted inversely into a must ideally be inversed)
--> if b is ordered but not ideally rr or rrr until ideal position
+Each time wanting to use rb, rrb or sb check if rr or rrr or ss could be used instead to sort b at same time
+-> if a top > top -1 -> ss
+-> if next smallest value is in direction ra and rb is used -> rr
+-> if next smallest value is in direction rra and rrb is used -> rrr
 
-0. If a ordered and b empty -> shortest path to correct place (ra || rra)
-1. Top b value can be inserted in ideal position and a is ordered -> pa else goto ideal pos for pa
-2. If sa created ideal position -> sa
-3. Fill stack b
-* If b == 0 fill it with smallest value not in longest chain
+0. Check if goal is completed (goal is pb smallest value after potentially having pb second smallest values)-> if it is perform operations related to resorting b
+1. If a ordered and b empty -> shortest path to correct place (ra || rra)
+2. if a ordered b no empty -> goto ideal pa position
+3. If sa created ordered stack -> sa
+4. Fill stack b
+* If b == 0 fill it with smallest value
 * If top a is ideal for b -> pb
+* If top a is second smallest value in stack a -> pb
 * Else goto ideal position in a for next b
