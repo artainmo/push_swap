@@ -99,14 +99,12 @@ int		get_value_from_position(t_stack *a, int pos)
 	a = stack_begin(a);
 	while (a != 0)
 	{
-		// printf("num:%i\n", a->number);
-		// fflush(stdout);
 		if (a->number == pos)
 			return (a->value);
 		a = a->next;
 	}
-	printf("pos:%i\n", pos);
-	fflush(stdout);
+	// printf("pos:%i\n", pos);
+	// fflush(stdout);
 	ft_error("get_value_from_pos function error");
 	return (0);
 }

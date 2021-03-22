@@ -17,7 +17,7 @@ t_stack	*stack_init(int value)
 	t_stack *new;
 
 	if ((new = malloc(sizeof(t_stack))) == 0)
-		ft_error("Malloc failed");
+		ft_error("Malloc7 failed");
 	new->next = 0;
 	new->prev = 0;
 	new->value = value;
@@ -51,7 +51,7 @@ t_stack	*stack_push(t_stack *stack, int value)
 	{
 		stack = stack_end(stack);
 		if ((stack->next = malloc(sizeof(t_stack))) == 0)
-			ft_error("Malloc failed");
+			ft_error("Malloc8 failed");
 		stack->next->prev = stack;
 		stack->next->next = 0;
 		stack->next->value = value;

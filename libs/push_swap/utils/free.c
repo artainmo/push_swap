@@ -61,3 +61,9 @@ void	free_sorted_chain(t_sorted_chain *sc)
 		free(rem);
 	}
 }
+
+void free_goal(t_goal *goal)
+{
+  free(goal->todos_after_goal);
+  free(goal);
+}

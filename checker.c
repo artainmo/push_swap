@@ -67,7 +67,7 @@ static void	take_input(t_ab_stack *s, int visual, int color)
 			break ;
 		}
 		if ((o->next = malloc(sizeof(t_operations))) == 0)
-			ft_error("Malloc failed");
+			ft_error("Malloc1 failed");
 		o->next->head = o->head;
 		o = o->next;
 		o->next = 0;

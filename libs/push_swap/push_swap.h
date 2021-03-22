@@ -40,6 +40,14 @@ typedef struct	s_operations
 	struct s_operations	*head;
 }				t_operations;
 
+typedef struct	s_goal
+{
+	char *todos_after_goal;
+	int goal;
+	int push_before_goal;
+	int completed;
+} t_goal;
+
 typedef struct	s_sorted_chain
 {
 	int						start;
@@ -105,7 +113,7 @@ t_sorted_chain	*longest_chain(t_stack *a);
 char			*shortest_path_to_correct_placement(t_stack *a);
 char		*shortest_path_to_correct_placementb(t_stack *a);
 char	*goto_ideal_value_top_b(t_stack *a, t_stack *b);
-char			*b_ideal_position_a(t_stack *a, t_stack *b, t_sorted_chain *sc);
+char			*b_ideal_position_a(t_stack *a, t_stack *b);
 // char			*top_smaller_than_second(t_stack *a, t_stack *b);
 // char			*top_greater_than_second(t_stack *a, t_stack *b);
 t_ab_stack		*ab_stack_copy(t_ab_stack *s);
@@ -113,12 +121,20 @@ t_ab_stack		*ab_stack_copy(t_ab_stack *s);
 // char *outside_longest_chain(t_stack *a, t_sorted_chain *sc);
 // char *inside_longest_chain(t_stack *a, t_sorted_chain *sc);
 
-char *fill_b(t_stack *a, t_stack *b, t_sorted_chain *sc);
+char *fill_b(t_stack *a, t_goal *goal);
 int	ideal_nextb(t_stack *a, t_stack *b, t_sorted_chain *sc);
-int		smallest_value_outside_longest_chain_num(t_stack *s, t_sorted_chain *sc);
 int			is_sortedb(t_stack *b);
 int			orderedb(t_stack *b);
 int		smallest_value_num(t_stack *s);
 int	ideal_nextb2(t_stack *a, t_stack *b);
+
+void free_goal(t_goal *goal);
+char *get_todo(t_goal *goal);
+t_goal *init_goal();
+t_goal *set_new_goal(t_goal *goal, int g);
+int	ideal_nextb3(t_stack *a, int value);
+t_goal *generate_todos(t_goal *goal);
+int	sa_ideal_all(t_stack *a, t_stack *b);
+char *goto_num(int pos, t_stack *a);
 
 #endif

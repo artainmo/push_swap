@@ -31,7 +31,11 @@ t_ab_stack	*find_operation3(t_ab_stack *s, char *line)
 		return (s);
 	}
 	else
+	{
+		printf("%s|%i\n", line, ft_strlen(line));
+		fflush(stdout);
 		ft_error("Error");
+	}
 	return (s);
 }
 
@@ -92,6 +96,6 @@ char		*malloc_operation(char *operation)
 	char *ret;
 
 	if ((ret = ft_strdup(operation)) == 0)
-		ft_error("Malloc failed");
+		ft_error("Malloc6 failed");
 	return (ret);
 }

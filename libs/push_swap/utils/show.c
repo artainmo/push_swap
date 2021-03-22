@@ -30,7 +30,7 @@ static t_stack	*show_single_stack(t_stack *s, int *size)
 	char *str;
 
 	if ((str = ft_itoa(s->value)) == 0)
-		ft_error("Malloc failed");
+		ft_error("Malloc12 failed");
 	*size = ft_strlen(str);
 	write(1, str, *size);
 	return (s->prev);
@@ -67,7 +67,7 @@ static void		show_total_steps(int i, int visual)
 	if (visual == 0)
 		return ;
 	if ((str = ft_itoa(i)) == 0)
-		ft_error("Malloc failed");
+		ft_error("Malloc13 failed");
 	write(1, "Total steps: ", 13);
 	write(1, str, ft_strlen(str));
 	write(1, "\n", 1);
