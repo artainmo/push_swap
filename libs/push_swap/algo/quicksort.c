@@ -133,14 +133,14 @@ static void next_goala(t_goal *goal, t_stack *a, t_stack *b, int debug)
     goal->returning = 0;
   if (goal->all_ordered_push != 0 && goal->partition != 0)
     return ;
-  if (goal->partition != 0 && partition_sorted(a, goal->partition))
+  if (goal->partition != 0 && partition_sorted(a, goal->partition) && !stack_sorted(a))
   {
     goal->all_ordered_push = partition_len(a, goal->partition);
     return ;
   }
   if ((stack_len(a) == 2) && stack_end(a)->value > stack_begin(a)->value)
     return ;
-  if (goal->partition == 0 && (stack_len(a) <= 2 || stack_sorted(a)))
+  if ((goal->partition == 0 && stack_len(a) <= 2) || stack_sorted(a))
   {
     midpoint_algo_s_change(goal, 'b', b, debug);
     if (goal->partition != 0 && partition_sorted(a, goal->partition))
