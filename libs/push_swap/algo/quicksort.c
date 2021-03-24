@@ -210,6 +210,8 @@ char *quicksort_a(t_stack *a, t_goal *goal)
   }
   else if (len == 2 && a->value > a->prev->value)
     return malloc_operation("sa");
+  else if (a->value < goal->median && a->value > a->prev->value)
+    return malloc_operation("sa");
   else if (a->value < goal->median)
   {
     goal->pushed_number++;
@@ -255,6 +257,8 @@ char *quicksort_b(t_stack *b, t_goal *goal)
     return malloc_operation("pa");
   }
   else if (len == 2 && b->value < b->prev->value)
+    return malloc_operation("sb");
+  else if (b->value >= goal->median && b->value < b->prev->value)
     return malloc_operation("sb");
   else if (b->value >= goal->median)
   {

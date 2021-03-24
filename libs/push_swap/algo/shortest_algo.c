@@ -16,26 +16,18 @@ char		*shortest_path_to_correct_placement(t_stack *a)
 {
 	if (stack_end(a)->number - stack_highest_value_pos(a) + 1
 			< stack_highest_value_pos(a))
-	{
 		return (malloc_operation("ra"));
-	}
 	else
-	{
 		return (malloc_operation("rra"));
-	}
 }
 
 char		*shortest_path_to_correct_placementb(t_stack *b)
 {
 	if (stack_end(b)->number - stack_lowest_value_pos(b) + 1
 			< stack_lowest_value_pos(b))
-	{
 		return (malloc_operation("rb"));
-	}
 	else
-	{
 		return (malloc_operation("rrb"));
-	}
 }
 
 // char		*shortest_path_to_correct_placementb(t_stack *a)
