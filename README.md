@@ -59,7 +59,7 @@ Base algorithm for small stack size:
 
 Quicksort algorithm:
 
-1. akes median of upper partition (intially whole stack a == partition 0). Moves values under median to stack b. Continues doing the median algorithm until 2 values are left or values left are sorted, each time the median algorithm is reused values are pushed to a higher partition in b.
+1. Makes median of upper partition (intially whole stack a == partition 0). Moves values under median to stack b. Continues doing the median algorithm until 2 values are left or values left are sorted, each time the median algorithm is reused values are pushed to a higher partition in b.
 1. B takes median upper partition and moves values above or equal to median to stack a. Continues doing this until b is empty, if two values are left it will sort them if necessary with s.
 3. A does the same thing pushing back to B who will push back to A, until A is all sorted.
 
