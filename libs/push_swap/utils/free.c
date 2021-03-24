@@ -26,6 +26,8 @@ void	free_stack(t_stack *s)
 
 void	free_ab_stack(t_ab_stack *s)
 {
+	if (s == 0)
+		return ;
 	free_stack(s->a);
 	free_stack(s->b);
 	free(s);
@@ -39,12 +41,7 @@ void	free_operations(t_operations *o)
 	{
 		rem = o;
 		o = o->next;
-		if (rem->line != 0 && rem->s != 0)
-		{
-			free(rem->s->a);
-			free(rem->s->b);
-			free(rem->s);
-		}
+		free_ab_stack(rem->s);
 		free(rem->line);
 		free(rem);
 	}

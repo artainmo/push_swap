@@ -48,9 +48,19 @@ static void shortest_operation(t_ab_stack *s, t_operations *o, t_goal *goal, int
 	ab(s, o);
 }
 
-static t_operations	*get_operations(t_ab_stack *s, int debug)
+static void ft_debug(t_ab_stack *s, t_operations *o, t_goal *goal)
 {
 	char *line;
+
+	show_stack(s, o->line, 1, 0);
+	show_goal(goal, "GOAL STATE");
+	if ((get_next_line(0, &line)) == -1)
+		ft_error("get_next_line error");
+	free(line);
+}
+
+static t_operations	*get_operations(t_ab_stack *s, int debug)
+{
 	t_operations	*o;
 	t_goal *goal;
 
@@ -61,13 +71,7 @@ static t_operations	*get_operations(t_ab_stack *s, int debug)
 		shortest_operation(s, o, goal, debug);
 		s = find_operation(s, o->line, goal->partition_to_push_to);
 		if (debug)
-		{
-			show_stack(s, o->line, 1, 0);
-			show_goal(goal, "GOAL STATE");
-			if ((get_next_line(0, &line)) == -1)
-				ft_error("get_next_line error");
-			free(line);
-		}
+			ft_debug(s, o, goal);
 		o->s = ab_stack_copy(s);
 		if ((o->next = malloc(sizeof(t_operations))) == 0)
 			ft_error("Malloc14 failed");

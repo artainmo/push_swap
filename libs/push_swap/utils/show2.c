@@ -37,6 +37,7 @@ static t_stack	*show_single_stack(t_stack *s, int *size)
 		ft_error("Malloc12 failed");
 	*size = ft_strlen(str);
 	write(1, str, *size);
+	free(str);
 	return (s->prev);
 }
 
@@ -74,6 +75,7 @@ static void		show_total_steps(int i, int visual)
 		ft_error("Malloc13 failed");
 	write(1, "Total steps: ", 13);
 	write(1, str, ft_strlen(str));
+	free(str);
 	write(1, "\n", 1);
 }
 
