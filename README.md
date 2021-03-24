@@ -15,7 +15,7 @@ IDEAL POSITION: Relative to following value depending on longest sorted chain.
 - pb if following value is not ideal one
 - else rra
 
-## New algorithm
+## Second algorithm
 IDEAL POSITION: Relative to following or following value depending on longest sorted chain.
 
 Each time wanting to use ra, rra or sa check if rr or rrr or ss could be used instead to sort b at same time
@@ -31,7 +31,7 @@ Each time wanting to use ra, rra or sa check if rr or rrr or ss could be used in
 * sa if ideal pos next to longest chain
 * else pb
 
-## Latest best performing algorithm
+## Third algorithm
 IDEAL POSITION: Relative to following or following value depending on longest sorted chain.
 ORDERED: All values in correct position relative to each other but not relative to stack itself
 
@@ -49,3 +49,16 @@ Each time wanting to use rb, rrb or sb check if rr or rrr or ss could be used in
 * If top a is ideal for b -> pb
 * If top a is second smallest value in stack a -> pb
 * Else goto ideal position in a for next b
+
+## Last algorithm
+Base algorithm for small stack size:
+If a is ordered ra/rra until ideally sorted.
+If b is ordered rb/rrb until ideally sorted.
+If s creates ideal order in a or b -> sa/sb
+
+Quicksort algorithm:
+Takes median of upper partition (intially whole stack a == partition 0). Moves values under median to stack b. Continues doing the median algorithm until 2 values are left or values left are sorted, each time the median algorithm is reused values are pushed to a higher partition in b.
+B takes median upper partition and moves values above or equal to median to stack a. Continues doing this until b is empty, if two values are left it will sort them if necessary with s.
+A does the same thing pushing back to B who will push back to A, until A is all sorted.
+
+
