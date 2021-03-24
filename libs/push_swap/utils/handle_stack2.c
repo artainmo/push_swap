@@ -12,6 +12,43 @@
 
 #include "../push_swap.h"
 
+int stack_len(t_stack *stack)
+{
+  int i;
+
+  i = 0;
+  if (stack == 0)
+		return (0);
+	while (stack != 0)
+  {
+    i++;
+		stack = stack->next;
+  }
+  return (i);
+}
+
+t_stack *partition_end(t_stack *stack, int partition)
+{
+	if (stack == 0)
+		return (0);
+	while (stack->next != 0 && stack->partition != partition + 1)
+		stack = stack->next;
+	if (stack->partition == partition + 1)
+		return (stack->prev);
+	return (stack);
+}
+
+t_stack *partition_begin(t_stack *stack, int partition)
+{
+	if (stack == 0)
+		return (0);
+	while (stack->next != 0 && stack->partition != partition)
+		stack = stack->next;
+	if (stack->partition != partition)
+		ft_error("partition begin error");
+	return (stack);
+}
+
 t_stack	*stack_position(t_stack *s, int number)
 {
 	while (s->number != number)
@@ -42,6 +79,7 @@ int		stack_highest_value_pos(t_stack *s)
 
 	big = -2147483648;
 	num = -2147483648;
+  s = stack_begin(s);
 	while (s != 0)
 	{
 		if (s->value > big)
@@ -61,6 +99,7 @@ int		stack_lowest_value_pos(t_stack *s)
 
 	small = 2147483647;
 	num = 2147483647;
+  s = stack_begin(s);
 	while (s != 0)
 	{
 		if (s->value < small)
@@ -70,7 +109,6 @@ int		stack_lowest_value_pos(t_stack *s)
 		}
 		s = s->next;
 	}
-	// write(1, "3", 1);
 	return (num);
 }
 
@@ -116,7 +154,7 @@ t_stack	*stack_copy(t_stack *a)
 	cpy = 0;
 	while (a != 0)
 	{
-		cpy = stack_push(cpy, a->value);
+		cpy = stack_push(cpy, a->value, a->partition);
 		a = a->next;
 	}
 	return (cpy);

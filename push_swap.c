@@ -12,26 +12,26 @@
 
 #include "push_swap_lib.h"
 
-static void ba(t_ab_stack *s, t_operations *o)
-{
-	if (s->b == 0 || s->b->next == 0)
-		return ;
-	if (ft_strcmp(o->line, "sb") && stack_end(s->a)->prev->value < stack_end(s->a)->value)
-	{
-			free(o->line);
-			o->line = malloc_operation("ss");
-	}
-	else if (ft_strcmp(o->line, "rb") && ft_strcmp(goto_num(get_position_from_value(s->a, ideal_nextb2(s->a, s->b)), s->a), "ra"))
-	{
-		free(o->line);
-		o->line = malloc_operation("rr");
-	}
-	else if (ft_strcmp(o->line, "rrb") && ft_strcmp(goto_num(get_position_from_value(s->a, ideal_nextb2(s->a, s->b)), s->a), "rra"))
-	{
-		free(o->line);
-		o->line = malloc_operation("rrr");
-	}
-}
+// static void ba(t_ab_stack *s, t_operations *o)
+// {
+// 	if (s->b == 0 || s->b->next == 0)
+// 		return ;
+// 	if (ft_strcmp(o->line, "sb") && stack_end(s->a)->prev->value < stack_end(s->a)->value)
+// 	{
+// 			free(o->line);
+// 			o->line = malloc_operation("ss");
+// 	}
+// 	else if (ft_strcmp(o->line, "rb") && ft_strcmp(goto_num(get_position_from_value(s->a, ideal_nextb2(s->a, s->b)), s->a), "ra"))
+// 	{
+// 		free(o->line);
+// 		o->line = malloc_operation("rr");
+// 	}
+// 	else if (ft_strcmp(o->line, "rrb") && ft_strcmp(goto_num(get_position_from_value(s->a, ideal_nextb2(s->a, s->b)), s->a), "rra"))
+// 	{
+// 		free(o->line);
+// 		o->line = malloc_operation("rrr");
+// 	}
+// }
 
 // static void ab(t_ab_stack *s, t_operations *o)
 // {
@@ -54,88 +54,68 @@ static void ba(t_ab_stack *s, t_operations *o)
 // 	}
 // }
 
-static void inf_loop_protection(t_operations *o, char *last)
+// static void inf_loop_protection(t_operations *o, char *last)
+// {
+// 	if (last != 0 && (ft_strcmp(last, "ra") ||  ft_strcmp(last, "rr")) && ft_strcmp(o->line, "rra"))
+// 	{
+// 		free(o->line);
+// 		o->line = malloc_operation("ra");
+// 	}
+// 	if (last != 0 && (ft_strcmp(last, "rra") || ft_strcmp(last, "rrr")) && ft_strcmp(o->line, "ra"))
+// 	{
+// 		free(o->line);
+// 		o->line = malloc_operation("rra");
+// 	}
+// 	if (last != 0 && ft_strcmp(last, "pa") && ft_strcmp(o->line, "pb"))
+// 	{
+// 		free(o->line);
+// 		o->line = malloc_operation("rra");
+// 	}
+// 	if (last != 0 && ft_strcmp(last, "pb") && ft_strcmp(o->line, "pa"))
+// 	{
+// 		free(o->line);
+// 		o->line = malloc_operation("rra");
+// 	}
+// 	if (last != 0 && ft_strcmp(last, "sa") && ft_strcmp(o->line, "sa"))
+// 	{
+// 		free(o->line);
+// 		o->line = malloc_operation("rra");
+// 	}
+// }
+
+static void shortest_operation(t_ab_stack *s, t_operations *o, t_goal *goal, int debug)
 {
-	if (last != 0 && (ft_strcmp(last, "ra") ||  ft_strcmp(last, "rr")) && ft_strcmp(o->line, "rra"))
-	{
-		free(o->line);
-		o->line = malloc_operation("ra");
-	}
-	if (last != 0 && (ft_strcmp(last, "rra") || ft_strcmp(last, "rrr")) && ft_strcmp(o->line, "ra"))
-	{
-		free(o->line);
-		o->line = malloc_operation("rra");
-	}
-	if (last != 0 && ft_strcmp(last, "pa") && ft_strcmp(o->line, "pb"))
-	{
-		free(o->line);
-		o->line = malloc_operation("rra");
-	}
-	if (last != 0 && ft_strcmp(last, "pb") && ft_strcmp(o->line, "pa"))
-	{
-		free(o->line);
-		o->line = malloc_operation("rra");
-	}
-	if (last != 0 && ft_strcmp(last, "sa") && ft_strcmp(o->line, "sa"))
-	{
-		free(o->line);
-		o->line = malloc_operation("rra");
-	}
-}
-
-/*
-** First created algorithm consisted of
-** top_greater_than_second2 -> top_greater_than_second
-*/
-
-static char			*shortest_operation(t_ab_stack *s, t_operations *o, t_goal *goal, char *last)
-{
-	char *ret;
-
-	if (goal->completed == 1)
-	{
-		if (goal->push_before_goal != 0)
-			goal = generate_todos(goal);
-		if (ft_strlen(goal->todos_after_goal) != 0)
-		{
-			o->line = get_todo(goal);
-			ba(s, o);
-			return o->line;
-		}
-		goal = set_new_goal(goal, ideal_nextb2(s->a, s->b));
-	}
-	if (all_ordered(s->a, s->b))
+	verify_goal(goal, s->a, s->b, debug);
+	if (!stack_sorted(s->a) && ordered(s->a))
 		o->line = shortest_path_to_correct_placement(s->a);
-	else if (ordered(s->a) && s->b != 0)
-		o->line = b_ideal_position_a(s->a, s->b);
-	else if (sa_ideal_all(s->a, s->b))
-		o->line  = malloc_operation("sa");
-	else if ((ret = fill_b(s->a, goal)) != 0)
-		o->line = ret;
+	else if (!stack_sortedb(s->b) && orderedb(s->b))
+		o->line = shortest_path_to_correct_placementb(s->b);
+	else if (sa_ideal(s->a))
+		o->line = malloc_operation("sa");
+	else if (sa_idealb(s->b))
+		o->line = malloc_operation("sb");
+	else if (goal->stack == 'a')
+		o->line = quicksort_a(s->a, goal);
 	else
-		ft_error("Error: no operation found");
-	inf_loop_protection(o, last);
-	// ab(s, o);
-	return o->line;
+		o->line = quicksort_b(s->b, goal);
 }
 
 static t_operations	*get_operations(t_ab_stack *s, int debug)
 {
 	char *line;
 	t_operations	*o;
-	char *last;
 	t_goal *goal;
 
 	o = init_operations();
-	goal = init_goal();
-	last = 0;
+	goal = init_goal(s->a, debug);
 	while (!is_sorted(s->a, s->b))
 	{
-		last = shortest_operation(s, o, goal, last);
-		s = find_operation(s, o->line);
+		shortest_operation(s, o, goal, debug);
+		s = find_operation(s, o->line, goal->partition_to_push_to);
 		if (debug)
 		{
 			show_stack(s, o->line, 1, 0);
+			show_goal(goal, "GOAL STATE");
 			if ((get_next_line(0, &line)) == -1)
 				ft_error("get_next_line error");
 			free(line);
@@ -147,7 +127,7 @@ static t_operations	*get_operations(t_ab_stack *s, int debug)
 		o = o->next;
 		o->next = 0;
 	}
-	free_goal(goal);
+	free(goal);
 	return (o);
 }
 
@@ -166,7 +146,7 @@ int					main(int argc, char **argv)
 	verify_number_errors(argc, argv);
 	while (argc > 1)
 	{
-		s->a = stack_push(s->a, ft_atoi(argv[argc - 1]));
+		s->a = stack_push(s->a, ft_atoi(argv[argc - 1]), 0);
 		argc--;
 	}
 	verify_duplicates(s->a);

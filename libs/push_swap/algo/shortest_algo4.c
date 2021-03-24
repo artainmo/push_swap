@@ -19,103 +19,114 @@
 **which cannot be equal to another number as all are unique
 */
 
-int	ideal_next(t_stack *a)
-{
-	t_stack	*i;
-	int		ideal;
+// int	ideal_next(t_stack *a)
+// {
+// 	t_stack	*i;
+// 	int		ideal;
+//
+// 	i = stack_begin(a);
+// 	ideal = a->value;
+// 	while (i != 0)
+// 	{
+// 		if (a->value - i->value > 0 && (i->value > ideal || ideal == a->value))
+// 			ideal = i->value;
+// 		i = i->next;
+// 	}
+// 	if (ideal == a->value)
+// 		return stack_biggest_value(a);
+// 	return (ideal);
+// }
+//
+// int	ideal_next2(t_stack *a, int value)
+// {
+// 	t_stack	*i;
+// 	int		ideal;
+//
+// 	i = stack_begin(a);
+// 	ideal = value;
+// 	while (i != 0)
+// 	{
+// 		if (value - i->value > 0 && (i->value > ideal || ideal == value))
+// 			ideal = i->value;
+// 		i = i->next;
+// 	}
+// 	if (ideal == value)
+// 		return stack_biggest_value(a);
+// 	return (ideal);
+// }
 
-	i = stack_begin(a);
-	ideal = a->value;
-	while (i != 0)
-	{
-		if (a->value - i->value > 0 && (i->value > ideal || ideal == a->value))
-			ideal = i->value;
-		i = i->next;
-	}
-	if (ideal == a->value)
-		return stack_biggest_value(a);
-	return (ideal);
-}
-
-int	ideal_next2(t_stack *a, int value)
-{
-	t_stack	*i;
-	int		ideal;
-
-	i = stack_begin(a);
-	ideal = value;
-	while (i != 0)
-	{
-		if (value - i->value > 0 && (i->value > ideal || ideal == value))
-			ideal = i->value;
-		i = i->next;
-	}
-	if (ideal == value)
-		return stack_biggest_value(a);
-	return (ideal);
-}
-
-int		smallest_value_num(t_stack *s)
+int		smallest_value(t_stack *s, int partition)
 {
 	int small;
-	int num;
 
 	small = 2147483647;
-	num = 2147483647;
 	while (s != 0)
 	{
 		// printf("sm: %i %i\n", s->value, is_inside_longest_chain(s->value, s, sc));
 		// fflush(stdout);
-		if (s->value < small)
-		{
+		if (s->partition == partition && s->value < small)
 			small = s->value;
-			num = s->number;
-		}
 		s = s->next;
 	}
 	// write(1, "2", 1);
-	return (num);
+	return (small);
 }
 
-int	ideal_nextb2(t_stack *a, t_stack *b)
-{
-	t_stack	*i;
-	int		ideal;
-	int value;
-
-	i = stack_begin(a);
-	if (b == 0)
-		return get_value_from_position(a, smallest_value_num(a));
-	value = stack_end(b)->value;
-	ideal = value;
-	while (i != 0)
-	{
-		if (value - i->value < 0 && (i->value < ideal || ideal == value))
-			ideal = i->value;
-		i = i->next;
-	}
-	if (ideal == value)
-		return get_value_from_position(a, smallest_value_num(a));
-	return (ideal);
-}
-
-int	ideal_nextb3(t_stack *a, int value)
+int	next_smallest(t_stack *s, int value, int partition)
 {
 	t_stack	*i;
 	int		ideal;
 
-	i = stack_begin(a);
+	i = stack_begin(s);
 	ideal = value;
 	while (i != 0)
 	{
-		if (value - i->value < 0 && (i->value < ideal || ideal == value))
+		if (i->partition == partition && value - i->value < 0 && (i->value < ideal || ideal == value))
 			ideal = i->value;
 		i = i->next;
 	}
-	// if (ideal == value)
-	// 	return get_value_from_position(a, smallest_value_num(a));
 	return (ideal);
 }
+
+// int	ideal_nextb2(t_stack *a, t_stack *b)
+// {
+// 	t_stack	*i;
+// 	int		ideal;
+// 	int value;
+//
+// 	i = stack_begin(a);
+// 	if (b == 0)
+// 		return get_value_from_position(a, smallest_value_num(a));
+// 	value = stack_end(b)->value;
+// 	ideal = value;
+// 	while (i != 0)
+// 	{
+// 		if (value - i->value < 0 && (i->value < ideal || ideal == value))
+// 			ideal = i->value;
+// 		i = i->next;
+// 	}
+// 	if (ideal == value)
+// 		return get_value_from_position(a, smallest_value_num(a));
+// 	return (ideal);
+// }
+
+// int	ideal_nextb3(t_stack *a, int value)
+// {
+// 	t_stack	*i;
+// 	int		ideal;
+//
+// 	i = stack_begin(a);
+// 	ideal = value;
+// 	while (i != 0)
+// 	{
+// 		if (value - i->value < 0 && (i->value < ideal || ideal == value))
+// 			ideal = i->value;
+// 		i = i->next;
+// 	}
+// 	// if (ideal == value)
+// 	// 	return get_value_from_position(a, smallest_value_num(a));
+// 	return (ideal);
+// }
 
 // char		*top_greater_than_second2(t_stack *a)
 // {

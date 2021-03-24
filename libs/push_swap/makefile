@@ -2,6 +2,7 @@ SRCSC	= algo/shortest_algo.c \
 					algo/shortest_algo2.c \
 					algo/shortest_algo3.c \
 					algo/shortest_algo4.c \
+					algo/quicksort.c \
 					operations/find_operation.c \
 					operations/operations.c \
 					utils/bonus_and_verifs.c \

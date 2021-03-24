@@ -25,88 +25,101 @@ char		*shortest_path_to_correct_placement(t_stack *a)
 	}
 }
 
-char		*shortest_path_to_correct_placementb(t_stack *a)
+char		*shortest_path_to_correct_placementb(t_stack *b)
 {
-	if (stack_end(a)->number - stack_highest_value_pos(a) + 1
-			< stack_highest_value_pos(a))
+	if (stack_end(b)->number - stack_lowest_value_pos(b) + 1
+			< stack_lowest_value_pos(b))
 	{
-		return (malloc_operation("rra"));
+		return (malloc_operation("rb"));
 	}
 	else
 	{
-		return (malloc_operation("ra"));
+		return (malloc_operation("rrb"));
 	}
 }
 
-char	*goto_ideal_value_top_b(t_stack *a, t_stack *b)
-{
-	int pos;
-
-	pos = get_position_from_value(a, ideal_nextb2(a, b));
-	if (pos <= stack_end(a)->number - pos + 1)
-		return (malloc_operation("rra"));
-	else
-		return (malloc_operation("ra"));
-}
-
-char		*b_ideal_position_a(t_stack *a, t_stack *b)
-{
-	// if (sc != 0)
-	// {
-	// 	printf("sc: %i %i\n", get_value_from_position(a, sc->start), get_value_from_position(a, sc->end));
-	// 	fflush(stdout);
-	// }
-	// printf("1: %i %i %i %i\n", stack_end(b)->value, ideal_next2(a, stack_end(b)->value), a->value, is_inside_longest_chain(a->value, a, sc));
-	// fflush(stdout);
-	if (a->value == ideal_next2(a, stack_end(b)->value))
-	{
-		return (malloc_operation("pa"));
-	}
-	// printf("2: %i %i\n", stack_end(a)->value, ideal_next2(a, stack_end(a)->value));
-	// fflush(stdout);
-	if (ideal_next2(a, stack_end(a)->value) < stack_end(b)->value && stack_end(b)->value < stack_end(a)->value)
-	{
-		return (malloc_operation("pa"));
-	}
-	return goto_ideal_value_top_b(a, b);
-}
-
-char *goto_num(int pos, t_stack *a)
-{
-	// printf("gtn: %i %i\n", pos + 1, stack_end(a)->number - pos);
-	// fflush(stdout);
-	if (stack_end(a)->number == pos)
-		return 0;
-	if (pos + 1 <= stack_end(a)->number - pos)
-		return (malloc_operation("rra"));
-	else
-		return (malloc_operation("ra"));
-}
-
-char *fill_b(t_stack *a, t_goal *goal)
-{
-	int value;
-	int pos_value;
-	int pos_goal;
-	int dist;
-
-	if (goal->goal == stack_end(a)->value)
-	{
-		goal->completed = 1;
-		return (malloc_operation("pb"));
-	}
-	value = ideal_nextb3(a, goal->goal);
-	pos_value = get_position_from_value(a, value);
-	pos_goal = get_position_from_value(a, goal->goal);
-	dist = (pos_value - pos_goal) * (pos_value - pos_goal);
-	if (stack_end(a)->value == ideal_nextb3(a, goal->goal) &&
-		dist > 9)
-	{
-		goal->push_before_goal++;
-		return (malloc_operation("pb"));
-	}
-	return goto_num(get_position_from_value(a, goal->goal), a);
-}
+// char		*shortest_path_to_correct_placementb(t_stack *a)
+// {
+// 	if (stack_end(a)->number - stack_highest_value_pos(a) + 1
+// 			< stack_highest_value_pos(a))
+// 	{
+// 		return (malloc_operation("rra"));
+// 	}
+// 	else
+// 	{
+// 		return (malloc_operation("ra"));
+// 	}
+// }
+//
+// char	*goto_ideal_value_top_b(t_stack *a, t_stack *b)
+// {
+// 	int pos;
+//
+// 	pos = get_position_from_value(a, ideal_nextb2(a, b));
+// 	if (pos <= stack_end(a)->number - pos + 1)
+// 		return (malloc_operation("rra"));
+// 	else
+// 		return (malloc_operation("ra"));
+// }
+//
+// char		*b_ideal_position_a(t_stack *a, t_stack *b)
+// {
+// 	// if (sc != 0)
+// 	// {
+// 	// 	printf("sc: %i %i\n", get_value_from_position(a, sc->start), get_value_from_position(a, sc->end));
+// 	// 	fflush(stdout);
+// 	// }
+// 	// printf("1: %i %i %i %i\n", stack_end(b)->value, ideal_next2(a, stack_end(b)->value), a->value, is_inside_longest_chain(a->value, a, sc));
+// 	// fflush(stdout);
+// 	if (a->value == ideal_next2(a, stack_end(b)->value))
+// 	{
+// 		return (malloc_operation("pa"));
+// 	}
+// 	// printf("2: %i %i\n", stack_end(a)->value, ideal_next2(a, stack_end(a)->value));
+// 	// fflush(stdout);
+// 	if (ideal_next2(a, stack_end(a)->value) < stack_end(b)->value && stack_end(b)->value < stack_end(a)->value)
+// 	{
+// 		return (malloc_operation("pa"));
+// 	}
+// 	return goto_ideal_value_top_b(a, b);
+// }
+//
+// char *goto_num(int pos, t_stack *a)
+// {
+// 	// printf("gtn: %i %i\n", pos + 1, stack_end(a)->number - pos);
+// 	// fflush(stdout);
+// 	if (stack_end(a)->number == pos)
+// 		return 0;
+// 	if (pos + 1 <= stack_end(a)->number - pos)
+// 		return (malloc_operation("rra"));
+// 	else
+// 		return (malloc_operation("ra"));
+// }
+//
+// char *fill_b(t_stack *a, t_goal *goal)
+// {
+// 	int value;
+// 	int pos_value;
+// 	int pos_goal;
+// 	int dist;
+//
+// 	if (goal->goal == stack_end(a)->value)
+// 	{
+// 		goal->completed = 1;
+// 		return (malloc_operation("pb"));
+// 	}
+// 	value = ideal_nextb3(a, goal->goal);
+// 	pos_value = get_position_from_value(a, value);
+// 	pos_goal = get_position_from_value(a, goal->goal);
+// 	dist = (pos_value - pos_goal) * (pos_value - pos_goal);
+// 	if (stack_end(a)->value == ideal_nextb3(a, goal->goal) &&
+// 		dist > 9)
+// 	{
+// 		goal->push_before_goal++;
+// 		return (malloc_operation("pb"));
+// 	}
+// 	return goto_num(get_position_from_value(a, goal->goal), a);
+// }
 
 /*
 ** int main()

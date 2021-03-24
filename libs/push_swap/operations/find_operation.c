@@ -32,18 +32,16 @@ t_ab_stack	*find_operation3(t_ab_stack *s, char *line)
 	}
 	else
 	{
-		printf("%s|%i\n", line, ft_strlen(line));
-		fflush(stdout);
 		ft_error("Error");
 	}
 	return (s);
 }
 
-t_ab_stack	*find_operation2(t_ab_stack *s, char *line)
+t_ab_stack	*find_operation2(t_ab_stack *s, char *line, int partition)
 {
 	if (ft_strcmp(line, "pb"))
 	{
-		s = ft_pb(s);
+		s = ft_pb(s, partition);
 		return (s);
 	}
 	else if (ft_strcmp(line, "ra"))
@@ -65,7 +63,7 @@ t_ab_stack	*find_operation2(t_ab_stack *s, char *line)
 	return (find_operation3(s, line));
 }
 
-t_ab_stack	*find_operation(t_ab_stack *s, char *line)
+t_ab_stack	*find_operation(t_ab_stack *s, char *line, int partition)
 {
 	if (ft_strcmp(line, "sa"))
 	{
@@ -85,10 +83,10 @@ t_ab_stack	*find_operation(t_ab_stack *s, char *line)
 	}
 	else if (ft_strcmp(line, "pa"))
 	{
-		s = ft_pa(s);
+		s = ft_pa(s, partition);
 		return (s);
 	}
-	return (find_operation2(s, line));
+	return (find_operation2(s, line, partition));
 }
 
 char		*malloc_operation(char *operation)

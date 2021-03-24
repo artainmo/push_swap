@@ -22,7 +22,7 @@ static void	do_it_live(t_ab_stack *s)
 			ft_error("get_next_line error");
 		if (ft_strlen(line) == 0)
 			break ;
-		s = find_operation(s, line);
+		s = find_operation(s, line, 0);
 		show_stack(s, line, 1, 0);
 	}
 	if (is_sorted(s->a, s->b))
@@ -36,7 +36,7 @@ static void	apply_input(t_operations *o, t_ab_stack *s, int visual, int color)
 {
 	while (o->next != 0)
 	{
-		s = find_operation(s, o->line);
+		s = find_operation(s, o->line, 0);
 		if (visual && color && o->next->next == 0)
 			show_stack(s, o->line, 1, 1);
 		else if (visual)
@@ -91,7 +91,7 @@ int			main(int argc, char **argv)
 	verify_number_errors(argc, argv);
 	while (argc > 1)
 	{
-		s->a = stack_push(s->a, ft_atoi(argv[argc - 1]));
+		s->a = stack_push(s->a, ft_atoi(argv[argc - 1]), 0);
 		argc--;
 	}
 	verify_duplicates(s->a);

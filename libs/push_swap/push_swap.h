@@ -22,6 +22,7 @@ typedef struct	s_stack
 {
 	int				value;
 	int				number;
+	int partition;
 	struct s_stack	*next;
 	struct s_stack	*prev;
 }				t_stack;
@@ -42,10 +43,15 @@ typedef struct	s_operations
 
 typedef struct	s_goal
 {
-	char *todos_after_goal;
-	int goal;
-	int push_before_goal;
-	int completed;
+	char stack;
+	int partition;
+	int partition_to_push_to;
+	int median;
+	int pushed_number;
+	int number_to_push;
+	int returned_number;
+	int returning;
+	int all_ordered_push;
 } t_goal;
 
 typedef struct	s_sorted_chain
@@ -64,10 +70,10 @@ typedef struct	s_bonus
 	int	color;
 }				t_bonus;
 
-t_stack			*stack_init(int value);
+t_stack			*stack_init(int value, int partition);
 t_stack			*stack_end(t_stack *stack);
 t_stack			*stack_begin(t_stack *stack);
-t_stack			*stack_push(t_stack *stack, int value);
+t_stack			*stack_push(t_stack *stack, int value, int partition);
 t_stack			*stack_pop(t_stack *stack);
 void			show_stack(t_ab_stack *s, char *t, int v, int c);
 void			free_stack(t_stack *s);
@@ -78,12 +84,12 @@ t_ab_stack		*init_ab_stack(t_stack *a, t_stack *b);
 t_operations	*init_operations();
 
 t_stack			*ft_s(t_stack *a);
-t_ab_stack		*ft_pa(t_ab_stack *s);
-t_ab_stack		*ft_pb(t_ab_stack *s);
+t_ab_stack		*ft_pa(t_ab_stack *s, int partition);
+t_ab_stack		*ft_pb(t_ab_stack *s, int partition);
 t_stack			*ft_r(t_stack *a);
 t_stack			*ft_rr(t_stack *a);
 
-t_ab_stack		*find_operation(t_ab_stack *s, char *line);
+t_ab_stack		*find_operation(t_ab_stack *s, char *line, int partition);
 int				is_sorted(t_stack *a, t_stack *b);
 void			verify_duplicates2(int value, t_stack *s);
 void			verify_duplicates(t_stack *a);
@@ -134,7 +140,28 @@ t_goal *init_goal();
 t_goal *set_new_goal(t_goal *goal, int g);
 int	ideal_nextb3(t_stack *a, int value);
 t_goal *generate_todos(t_goal *goal);
-int	sa_ideal_all(t_stack *a, t_stack *b);
 char *goto_num(int pos, t_stack *a);
+
+
+t_stack *partition_end(t_stack *s, int partition);
+t_stack *partition_begin(t_stack *stack, int partition);
+int partition_len(t_stack *stack, int partition);
+int		smallest_value(t_stack *s, int partition);
+int	next_smallest(t_stack *s, int value, int partition);
+int find_median(t_stack *s, int partition);
+void verify_goal(t_goal *goal, t_stack *a, t_stack *b, int debug);
+t_goal *init_goal(t_stack *a, int debug);
+int stack_len(t_stack *stack);
+char *quicksort_a(t_stack *a, t_goal *goal);
+char *quicksort_b(t_stack *b, t_goal *goal);
+void show_goal(t_goal *goal, char *title);
+int		stack_sorted(t_stack *a);
+int		partition_sorted(t_stack *a, int partition);
+int		partition_sortedb(t_stack *a, int partition);
+char		*shortest_path_to_correct_placementb(t_stack *b);
+int		stack_sortedb(t_stack *b);
+int	sa_ideala(t_stack *a);
+int	sa_idealb(t_stack *b);
+
 
 #endif

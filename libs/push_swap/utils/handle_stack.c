@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-t_stack	*stack_init(int value)
+t_stack	*stack_init(int value, int partition)
 {
 	t_stack *new;
 
@@ -22,6 +22,7 @@ t_stack	*stack_init(int value)
 	new->prev = 0;
 	new->value = value;
 	new->number = 0;
+	new->partition = partition;
 	return (new);
 }
 
@@ -43,10 +44,10 @@ t_stack	*stack_begin(t_stack *stack)
 	return (stack);
 }
 
-t_stack	*stack_push(t_stack *stack, int value)
+t_stack	*stack_push(t_stack *stack, int value, int partition)
 {
 	if (stack == 0)
-		return (stack_init(value));
+		return (stack_init(value, partition));
 	else
 	{
 		stack = stack_end(stack);
@@ -56,6 +57,7 @@ t_stack	*stack_push(t_stack *stack, int value)
 		stack->next->next = 0;
 		stack->next->value = value;
 		stack->next->number = stack->number + 1;
+		stack->next->partition = partition;
 	}
 	return (stack_begin(stack));
 }
