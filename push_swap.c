@@ -83,6 +83,24 @@
 // 	}
 // }
 
+static void ab(t_ab_stack *s, t_operations *o)
+{
+	if (s->b == 0 || s->b->next == 0)
+		return ;
+	else if (ft_strcmp(o->line, "sa") && stack_end(s->b)->prev->value > stack_end(s->b)->value)
+	{
+			free(o->line);
+			o->line = malloc_operation("ss");
+	}
+	else if (s->a == 0 || s->a->next == 0)
+		return ;
+	else if (ft_strcmp(o->line, "sb") && stack_end(s->a)->prev->value < stack_end(s->a)->value)
+	{
+				free(o->line);
+				o->line = malloc_operation("ss");
+	}
+}
+
 static void shortest_operation(t_ab_stack *s, t_operations *o, t_goal *goal, int debug)
 {
 	verify_goal(goal, s->a, s->b, debug);
@@ -98,6 +116,7 @@ static void shortest_operation(t_ab_stack *s, t_operations *o, t_goal *goal, int
 		o->line = quicksort_a(s->a, goal);
 	else
 		o->line = quicksort_b(s->b, goal);
+	ab(s, o);
 }
 
 static t_operations	*get_operations(t_ab_stack *s, int debug)
