@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   handle_stack4.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: artainmo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,40 +12,48 @@
 
 #include "../push_swap.h"
 
-void	free_stack(t_stack *s)
+int		smallest_value(t_stack *s, int partition)
 {
-	t_stack *rem;
+	int small;
 
+	small = 2147483647;
 	while (s != 0)
 	{
-		rem = s;
+		if (s->partition == partition && s->value < small)
+			small = s->value;
 		s = s->next;
-		free(rem);
 	}
+	return (small);
 }
 
-void	free_ab_stack(t_ab_stack *s)
+int	next_smallest(t_stack *s, int value, int partition)
 {
-	free_stack(s->a);
-	free_stack(s->b);
-	free(s);
-}
+	t_stack	*i;
+	int		ideal;
 
-void	free_operations(t_operations *o)
-{
-	t_operations *rem;
-
-	while (o != 0)
+	i = stack_begin(s);
+	ideal = value;
+	while (i != 0)
 	{
-		rem = o;
-		o = o->next;
-		if (rem->line != 0 && rem->s != 0)
-		{
-			free(rem->s->a);
-			free(rem->s->b);
-			free(rem->s);
-		}
-		free(rem->line);
-		free(rem);
+		if (i->partition == partition && value - i->value < 0 && (i->value < ideal || ideal == value))
+			ideal = i->value;
+		i = i->next;
 	}
+	return (ideal);
+}
+
+int partition_len(t_stack *stack, int partition)
+{
+  int i;
+
+  i = 0;
+  if (stack == 0)
+		return (0);
+	while (stack != 0 && stack->partition != partition + 1)
+  {
+    if (stack->partition == partition)
+      i++;
+		stack = stack->next;
+  }
+  return (i);
 }

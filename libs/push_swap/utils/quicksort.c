@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   quicksort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: artainmo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,40 +12,34 @@
 
 #include "../push_swap.h"
 
-void	free_stack(t_stack *s)
+int find_median(t_stack *s, int partition)
 {
-	t_stack *rem;
+  int len;
+  int value;
 
-	while (s != 0)
-	{
-		rem = s;
-		s = s->next;
-		free(rem);
-	}
+  len = partition_len(s, partition);
+  len = len / 2;
+  value = smallest_value(s, partition);
+  while (len != 0)
+  {
+    value = next_smallest(s, value, partition);
+    len--;
+  }
+  return value;
 }
 
-void	free_ab_stack(t_ab_stack *s)
+int numbers_before_median(t_stack *s, int partition)
 {
-	free_stack(s->a);
-	free_stack(s->b);
-	free(s);
+  return partition_len(s, partition) / 2;
 }
 
-void	free_operations(t_operations *o)
+int numbers_equal_after_median(t_stack *s, int partition)
 {
-	t_operations *rem;
+  int len;
 
-	while (o != 0)
-	{
-		rem = o;
-		o = o->next;
-		if (rem->line != 0 && rem->s != 0)
-		{
-			free(rem->s->a);
-			free(rem->s->b);
-			free(rem->s);
-		}
-		free(rem->line);
-		free(rem);
-	}
+  len = partition_len(s, partition);
+  if (len % 2 == 0)
+    return len / 2;
+  else
+    return len / 2 + 1;
 }

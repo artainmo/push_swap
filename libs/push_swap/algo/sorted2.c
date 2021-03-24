@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   sorted2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: artainmo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,40 +12,36 @@
 
 #include "../push_swap.h"
 
-void	free_stack(t_stack *s)
+int			orderedb(t_stack *b)
 {
-	t_stack *rem;
+	int start;
 
-	while (s != 0)
+	if (b == 0)
+		return (0);
+	b = stack_position(b, stack_lowest_value_pos(b));
+	start = b->number;
+	while (b->value < stack_next(b)->value)
 	{
-		rem = s;
-		s = s->next;
-		free(rem);
+		b = stack_next(b);
+		if (stack_next(b)->number == start)
+			return (1);
 	}
+	return (0);
 }
 
-void	free_ab_stack(t_ab_stack *s)
+int			ordered(t_stack *a)
 {
-	free_stack(s->a);
-	free_stack(s->b);
-	free(s);
-}
+	int start;
 
-void	free_operations(t_operations *o)
-{
-	t_operations *rem;
-
-	while (o != 0)
+	if (a == 0)
+		return (0);
+	a = stack_position(a, stack_highest_value_pos(a));
+	start = a->number;
+	while (a->value > stack_next(a)->value)
 	{
-		rem = o;
-		o = o->next;
-		if (rem->line != 0 && rem->s != 0)
-		{
-			free(rem->s->a);
-			free(rem->s->b);
-			free(rem->s);
-		}
-		free(rem->line);
-		free(rem);
+		a = stack_next(a);
+		if (stack_next(a)->number == start)
+			return (1);
 	}
+	return (0);
 }
