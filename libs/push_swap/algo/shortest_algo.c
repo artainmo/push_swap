@@ -46,7 +46,7 @@ int		sa_ideala(t_stack *a)
 	while (a->next != 0)
 	{
 		i++;
-		if (i > 4)
+		if (i > 3)
 			return (0);
 		a = a->next;
 	}

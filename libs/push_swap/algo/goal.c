@@ -14,9 +14,9 @@
 
 void	verify_goal(t_goal *goal, t_stack *a, t_stack *b, int debug)
 {
-	if ((goal->stack == 'a' && partition_sorted(a, goal->partition)) ||
-			(goal->stack == 'b' && partition_sortedb(b, goal->partition)) ||
-			goal->pushed_number >= goal->number_to_push)
+	if ((goal->stack == 'a' && partition_sorted_all(a, b, goal->partition)) ||
+			(goal->stack == 'b' && partition_sorted_allb(b, a, goal->partition))
+			|| goal->pushed_number >= goal->number_to_push)
 	{
 		if (goal->stack == 'a')
 			next_goala(goal, a, b, debug);

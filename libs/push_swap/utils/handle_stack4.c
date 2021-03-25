@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-int	smallest_value(t_stack *s, int partition)
+int		smallest_value(t_stack *s, int partition)
 {
 	int	small;
 
@@ -26,7 +26,7 @@ int	smallest_value(t_stack *s, int partition)
 	return (small);
 }
 
-int	next_smallest(t_stack *s, int value, int partition)
+int		next_smallest(t_stack *s, int value, int partition)
 {
 	t_stack	*i;
 	int		ideal;
@@ -43,7 +43,7 @@ int	next_smallest(t_stack *s, int value, int partition)
 	return (ideal);
 }
 
-int	partition_len(t_stack *stack, int partition)
+int		partition_len(t_stack *stack, int partition)
 {
 	int	i;
 
@@ -57,4 +57,17 @@ int	partition_len(t_stack *stack, int partition)
 		stack = stack->next;
 	}
 	return (i);
+}
+
+t_stack	*stack_copy(t_stack *a)
+{
+	t_stack *cpy;
+
+	cpy = 0;
+	while (a != 0)
+	{
+		cpy = stack_push(cpy, a->value, a->partition);
+		a = a->next;
+	}
+	return (cpy);
 }

@@ -30,6 +30,24 @@ int		stack_biggest_value(t_stack *a)
 	return (biggest);
 }
 
+int		stack_smallest_value(t_stack *a)
+{
+	t_stack	*i;
+	int		smallest;
+
+	if (a == 0)
+		return (0);
+	i = stack_begin(a);
+	smallest = i->value;
+	while (i != 0)
+	{
+		if (smallest > i->value)
+			smallest = i->value;
+		i = i->next;
+	}
+	return (smallest);
+}
+
 int		stack_highest_value_pos(t_stack *s)
 {
 	int	big;
@@ -76,17 +94,4 @@ t_stack	*stack_next(t_stack *s)
 		return (stack_begin(s));
 	else
 		return (s->next);
-}
-
-t_stack	*stack_copy(t_stack *a)
-{
-	t_stack *cpy;
-
-	cpy = 0;
-	while (a != 0)
-	{
-		cpy = stack_push(cpy, a->value, a->partition);
-		a = a->next;
-	}
-	return (cpy);
 }
