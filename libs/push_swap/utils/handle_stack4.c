@@ -12,9 +12,9 @@
 
 #include "../push_swap.h"
 
-int		smallest_value(t_stack *s, int partition)
+int	smallest_value(t_stack *s, int partition)
 {
-	int small;
+	int	small;
 
 	small = 2147483647;
 	while (s != 0)
@@ -35,25 +35,26 @@ int	next_smallest(t_stack *s, int value, int partition)
 	ideal = value;
 	while (i != 0)
 	{
-		if (i->partition == partition && value - i->value < 0 && (i->value < ideal || ideal == value))
+		if (i->partition == partition && value - i->value < 0 &&
+				(i->value < ideal || ideal == value))
 			ideal = i->value;
 		i = i->next;
 	}
 	return (ideal);
 }
 
-int partition_len(t_stack *stack, int partition)
+int	partition_len(t_stack *stack, int partition)
 {
-  int i;
+	int	i;
 
-  i = 0;
-  if (stack == 0)
+	i = 0;
+	if (stack == 0)
 		return (0);
 	while (stack != 0 && stack->partition != partition + 1)
-  {
-    if (stack->partition == partition)
-      i++;
+	{
+		if (stack->partition == partition)
+			i++;
 		stack = stack->next;
-  }
-  return (i);
+	}
+	return (i);
 }

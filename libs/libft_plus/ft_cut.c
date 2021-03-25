@@ -12,16 +12,16 @@
 
 #include "libft.h"
 
-char *ft_cut_f(char *str, int len)
+char	*ft_cut_f(char *str, int len)
 {
-  char *ret;
-  int i;
+	char	*ret;
+	int		i;
 
-  i = 0;
-  if (len < 1 || str == 0)
-    return 0;
-  if ((ret = ft_substr(str, len, ft_strlen(str))) == 0)
-    return (0);
-  free(str);
-  return ret;
+	i = 0;
+	if (len < 1 || str == 0)
+		return (0);
+	if ((ret = ft_substr(str, len, ft_strlen(str))) == 0)
+		return (0);
+	free(str);
+	return (ret);
 }

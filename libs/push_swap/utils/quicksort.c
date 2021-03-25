@@ -12,34 +12,34 @@
 
 #include "../push_swap.h"
 
-int find_median(t_stack *s, int partition)
+int	find_median(t_stack *s, int partition)
 {
-  int len;
-  int value;
+	int	len;
+	int	value;
 
-  len = partition_len(s, partition);
-  len = len / 2;
-  value = smallest_value(s, partition);
-  while (len != 0)
-  {
-    value = next_smallest(s, value, partition);
-    len--;
-  }
-  return value;
+	len = partition_len(s, partition);
+	len = len / 2;
+	value = smallest_value(s, partition);
+	while (len != 0)
+	{
+		value = next_smallest(s, value, partition);
+		len--;
+	}
+	return (value);
 }
 
-int numbers_before_median(t_stack *s, int partition)
+int	numbers_before_median(t_stack *s, int partition)
 {
-  return partition_len(s, partition) / 2;
+	return (partition_len(s, partition) / 2);
 }
 
-int numbers_equal_after_median(t_stack *s, int partition)
+int	numbers_equal_after_median(t_stack *s, int partition)
 {
-  int len;
+	int len;
 
-  len = partition_len(s, partition);
-  if (len % 2 == 0)
-    return len / 2;
-  else
-    return len / 2 + 1;
+	len = partition_len(s, partition);
+	if (len % 2 == 0)
+		return (len / 2);
+	else
+		return (len / 2 + 1);
 }

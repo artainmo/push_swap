@@ -12,40 +12,40 @@
 
 #include "../push_swap.h"
 
-int stack_len(t_stack *stack)
+int		stack_len(t_stack *stack)
 {
-  int i;
+	int i;
 
-  i = 0;
-  if (stack == 0)
+	i = 0;
+	if (stack == 0)
 		return (0);
 	while (stack != 0)
-  {
-    i++;
+	{
+		i++;
 		stack = stack->next;
-  }
-  return (i);
+	}
+	return (i);
 }
 
-t_stack *partition_end(t_stack *stack, int partition)
+t_stack	*partition_end(t_stack *stack, int partition)
 {
 	if (stack == 0)
 		return (0);
-  stack = stack_end(stack);
+	stack = stack_end(stack);
 	while (stack->prev != 0 && stack->partition != partition)
 		stack = stack->prev;
 	return (stack);
 }
 
-t_stack *partition_begin(t_stack *stack, int partition)
+t_stack	*partition_begin(t_stack *stack, int partition)
 {
 	if (stack == 0)
 		return (0);
-  stack = stack_end(stack);
+	stack = stack_end(stack);
 	while (stack->prev != 0 && stack->partition != partition - 1)
 		stack = stack->prev;
 	if (stack->partition == partition - 1)
-    stack = stack->next;
+		stack = stack->next;
 	return (stack);
 }
 

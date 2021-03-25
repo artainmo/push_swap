@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-int			is_sorted(t_stack *a, t_stack *b)
+int	is_sorted(t_stack *a, t_stack *b)
 {
 	if (b != 0)
 		return (0);
@@ -25,7 +25,7 @@ int			is_sorted(t_stack *a, t_stack *b)
 	return (1);
 }
 
-int		stack_sortedb(t_stack *b)
+int	stack_sortedb(t_stack *b)
 {
 	if (b == 0)
 		return (0);
@@ -38,7 +38,7 @@ int		stack_sortedb(t_stack *b)
 	return (1);
 }
 
-int		stack_sorted(t_stack *a)
+int	stack_sorted(t_stack *a)
 {
 	if (a == 0)
 		return (0);
@@ -51,32 +51,20 @@ int		stack_sorted(t_stack *a)
 	return (1);
 }
 
-int		partition_sorted(t_stack *a, int partition)
+int	stack_sorted_all(t_stack *a, t_stack *b)
 {
-	if (a == 0)
-		return (0);
-	if (partition_len(a, partition) == 0)
-		return (0);
-	while (a->next != 0)
-	{
-		if (a->partition == partition && a->value < a->next->value)
-			return (0);
-		a = a->next;
-	}
-	return (1);
-}
+	int biggest_value_b;
 
-int		partition_sortedb(t_stack *a, int partition)
-{
 	if (a == 0)
 		return (0);
-	if (partition_len(a, partition) == 0)
-		return (0);
+	biggest_value_b = stack_biggest_value(b);
 	while (a->next != 0)
 	{
-		if (a->partition == partition && a->value > a->next->value)
+		if (a->value < a->next->value || a->value < biggest_value_b)
 			return (0);
 		a = a->next;
 	}
+	if (a->value < biggest_value_b)
+		return (0);
 	return (1);
 }

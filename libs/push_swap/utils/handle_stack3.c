@@ -12,11 +12,13 @@
 
 #include "../push_swap.h"
 
-int stack_biggest_value(t_stack *a)
+int		stack_biggest_value(t_stack *a)
 {
 	t_stack	*i;
 	int		biggest;
 
+	if (a == 0)
+		return (0);
 	i = stack_begin(a);
 	biggest = i->value;
 	while (i != 0)
@@ -25,17 +27,17 @@ int stack_biggest_value(t_stack *a)
 			biggest = i->value;
 		i = i->next;
 	}
-	return biggest;
+	return (biggest);
 }
 
 int		stack_highest_value_pos(t_stack *s)
 {
-	int big;
-	int num;
+	int	big;
+	int	num;
 
 	big = -2147483648;
 	num = -2147483648;
-  s = stack_begin(s);
+	s = stack_begin(s);
 	while (s != 0)
 	{
 		if (s->value > big)
@@ -50,12 +52,12 @@ int		stack_highest_value_pos(t_stack *s)
 
 int		stack_lowest_value_pos(t_stack *s)
 {
-	int small;
-	int num;
+	int	small;
+	int	num;
 
 	small = 2147483647;
 	num = 2147483647;
-  s = stack_begin(s);
+	s = stack_begin(s);
 	while (s != 0)
 	{
 		if (s->value < small)

@@ -12,7 +12,7 @@
 
 #include "../push_swap.h"
 
-static void show_goal3(t_goal *goal)
+static void	show_goal3(t_goal *goal)
 {
 	char *str;
 
@@ -24,7 +24,7 @@ static void show_goal3(t_goal *goal)
 	write(1, "\n-------------------\n", 21);
 }
 
-static void show_goal2(t_goal *goal)
+static void	show_goal2(t_goal *goal)
 {
 	char *str;
 
@@ -51,7 +51,7 @@ static void show_goal2(t_goal *goal)
 	show_goal3(goal);
 }
 
-void show_goal(t_goal *goal, char *title)
+void		show_goal(t_goal *goal, char *title)
 {
 	char s[2];
 	char *str;

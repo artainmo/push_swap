@@ -12,16 +12,20 @@
 
 #include "../push_swap.h"
 
-char		*shortest_path_to_correct_placement(t_stack *a)
+char	*shortest_path_to_correct_placement(t_stack *a)
 {
 	if (stack_end(a)->number - stack_highest_value_pos(a) + 1
 			< stack_highest_value_pos(a))
+	{
 		return (malloc_operation("ra"));
+	}
 	else
+	{
 		return (malloc_operation("rra"));
+	}
 }
 
-char		*shortest_path_to_correct_placementb(t_stack *b)
+char	*shortest_path_to_correct_placementb(t_stack *b)
 {
 	if (stack_end(b)->number - stack_lowest_value_pos(b) + 1
 			< stack_lowest_value_pos(b))
@@ -30,11 +34,11 @@ char		*shortest_path_to_correct_placementb(t_stack *b)
 		return (malloc_operation("rrb"));
 }
 
-int	sa_ideala(t_stack *a)
+int		sa_ideala(t_stack *a)
 {
 	t_stack	*cpy;
 	int		ret;
-	int i;
+	int		i;
 
 	i = 0;
 	if (a == 0 || a->next == 0 || stack_sorted(a))
@@ -54,11 +58,11 @@ int	sa_ideala(t_stack *a)
 	return (ret);
 }
 
-int	sa_idealb(t_stack *b)
+int		sa_idealb(t_stack *b)
 {
 	t_stack	*cpy;
 	int		ret;
-	int i;
+	int		i;
 
 	i = 0;
 	if (b == 0 || b->next == 0 || stack_sortedb(b))

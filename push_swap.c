@@ -12,25 +12,28 @@
 
 #include "push_swap_lib.h"
 
-static void ab(t_ab_stack *s, t_operations *o)
+static void			ab(t_ab_stack *s, t_operations *o)
 {
 	if (s->b == 0 || s->b->next == 0)
 		return ;
-	else if (ft_strcmp(o->line, "sa") && stack_end(s->b)->prev->value > stack_end(s->b)->value)
+	else if (ft_strcmp(o->line, "sa") &&
+			stack_end(s->b)->prev->value > stack_end(s->b)->value)
 	{
-			free(o->line);
-			o->line = malloc_operation("ss");
+		free(o->line);
+		o->line = malloc_operation("ss");
 	}
 	else if (s->a == 0 || s->a->next == 0)
 		return ;
-	else if (ft_strcmp(o->line, "sb") && stack_end(s->a)->prev->value < stack_end(s->a)->value)
+	else if (ft_strcmp(o->line, "sb") &&
+			stack_end(s->a)->prev->value < stack_end(s->a)->value)
 	{
-				free(o->line);
-				o->line = malloc_operation("ss");
+		free(o->line);
+		o->line = malloc_operation("ss");
 	}
 }
 
-static void shortest_operation(t_ab_stack *s, t_operations *o, t_goal *goal, int debug)
+static void			shortest_operation(t_ab_stack *s, t_operations *o,
+		t_goal *goal, int debug)
 {
 	verify_goal(goal, s->a, s->b, debug);
 	if (!stack_sorted(s->a) && ordered(s->a))
@@ -48,7 +51,7 @@ static void shortest_operation(t_ab_stack *s, t_operations *o, t_goal *goal, int
 	ab(s, o);
 }
 
-static void ft_debug(t_ab_stack *s, t_operations *o, t_goal *goal)
+static void			ft_debug(t_ab_stack *s, t_operations *o, t_goal *goal)
 {
 	char *line;
 
@@ -62,7 +65,7 @@ static void ft_debug(t_ab_stack *s, t_operations *o, t_goal *goal)
 static t_operations	*get_operations(t_ab_stack *s, int debug)
 {
 	t_operations	*o;
-	t_goal *goal;
+	t_goal			*goal;
 
 	o = init_operations();
 	goal = init_goal(s->a, debug);

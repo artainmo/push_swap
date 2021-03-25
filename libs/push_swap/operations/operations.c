@@ -52,7 +52,7 @@ t_stack		*ft_r(t_stack *a)
 	int rem_last;
 	int rem_last2;
 
-	if (a == 0|| a->next == 0)
+	if (a == 0 || a->next == 0)
 		return (a);
 	a = stack_end(a);
 	rem_last = a->value;
@@ -73,7 +73,7 @@ t_stack		*ft_rr(t_stack *a)
 	int rem_first;
 	int rem_first2;
 
-	if (a == 0|| a->next == 0)
+	if (a == 0 || a->next == 0)
 		return (a);
 	rem_first = a->value;
 	rem_first2 = a->partition;
