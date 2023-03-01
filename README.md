@@ -2,7 +2,7 @@
 
 42 school [subject](https://cdn.intra.42.fr/pdf/pdf/74633/en.subject.pdf).
 
-Algorithm project consisting of optimized data sorting with quicksort or other algorithm.
+Algorithm project consisting of optimized data sorting with quicksort or other algorithm
 
 ## First algorithm trial (personally invented)
 
