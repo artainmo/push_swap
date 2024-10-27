@@ -18,13 +18,13 @@ RM	= rm -f
 CFLAGS	= -Wall -Wextra -Werror
 
 $(NAMEC): ${OBJSC}
-			${CC} ${CFLAGS} -o ${NAMEC} ${OBJSC} ./libs/libft_plus/libft.a ./libs/push_swap/push_swap_lib.a ./libs/get_next_line/get_next_line.a
+			${CC} ${CFLAGS} -o ${NAMEC} ${OBJSC} ./libs/libft/libft.a ./libs/push_swap/push_swap_lib.a ./libs/get_next_line/get_next_line.a
 
 $(NAMEP): ${OBJSP}
-			${CC} ${CFLAGS} -o ${NAMEP}  ${OBJSP} ./libs/libft_plus/libft.a ./libs/push_swap/push_swap_lib.a ./libs/get_next_line/get_next_line.a
+			${CC} ${CFLAGS} -o ${NAMEP}  ${OBJSP} ./libs/libf/libft.a ./libs/push_swap/push_swap_lib.a ./libs/get_next_line/get_next_line.a
 
 $(NAMET): ${OBJST}
-			${CC} ${CFLAGS} -o ${NAMET} ${OBJST} ./libs/libft_plus/libft.a ./libs/push_swap/push_swap_lib.a ./libs/get_next_line/get_next_line.a
+			${CC} ${CFLAGS} -o ${NAMET} ${OBJST} ./libs/libft/libft.a ./libs/push_swap/push_swap_lib.a ./libs/get_next_line/get_next_line.a
 
 
 clean: libft_clean push_swap_clean get_next_line_clean
@@ -37,11 +37,11 @@ re:	fclean all
 
 
 libft_all:
-		make -C ./libs/libft_plus all
+		make -C ./libs/libft all
 libft_clean:
-		make -C ./libs/libft_plus clean
+		make -C ./libs/libft clean
 libft_fclean:
-		make -C ./libs/libft_plus fclean
+		make -C ./libs/libft fclean
 
 push_swap_all:
 			make -C ./libs/push_swap all
